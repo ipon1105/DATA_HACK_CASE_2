@@ -1,4 +1,5 @@
 import random
+import json
 '''
     This python script describes a Configuration information
 '''
@@ -34,10 +35,9 @@ MAX_B = int()
 RANDOM = random.randint(MIN_A, MAX_B)
 
 #Чтение из JSON
-#import json
-#with open('data.json', 'r') as f:
-#    d = json.load(f)
-#    print(d)
+with open("data.json") as d:
+    data_s = json.load(d)
+    print(data_s)
 
 # Задание строк фиксированной и нефиксироанной (но ограниченной) длины из заданного диапазона символов
 # Задание значений для полей типа date и timestamp из заданного диапазона
