@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
 '''
-    This python script describes a table
+    This python script describes a table    
     for which synthetic data will be generated. 
     The description of the table structure is a dataclass.
 '''
@@ -16,6 +16,8 @@ class Column:
     # The type field describes one of the possible column types
     type: int
 
+    pass
+
 @dataclass
 class Table:
     "The class denotes a database table"
@@ -28,3 +30,5 @@ class Table:
 
     # The column_array field describes array of Column elements
     column_array = list(Column)
+
+    pass
