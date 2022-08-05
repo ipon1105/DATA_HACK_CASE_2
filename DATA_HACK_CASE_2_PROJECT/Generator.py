@@ -46,10 +46,37 @@ class Generator:
                         case "FIO":
                             column.row.append(self.fake.name())
                             print(column.row)
-                        case 2:
-                            print("thing is 2")
-                        case 3:
-                            print("thing is 3")
+                        case "city":
+                            column.row.append(self.fake.city())
+                            print(column.row)
+                        case "job":
+                            column.row.append(self.fake.job())
+                            print(column.row)
+                        case "email":
+                            column.row.append(self.fake.email())
+                            print(column.row)
+                        case "Phone_number":
+                            column.row.append(self.fake.phone_number())
+                            print(column.row)
+                        case "user_name":
+                            column.row.append(self.fake.user_name())
+                            print(column.row)
+
+                        case "ip":
+                            column.row.append(self.fake.ipv4())
+                            print(column.row)
+
+                        case _:
+                            print("thing is not 1, 2 or 3")
+                    pass
+
+                    match column.date:
+                        case "birthday":
+                            column.row.append(self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
+                            print(column.row)
+                        case "visits":
+                            column.row.append(self.fake.time(pattern="%H:%M:%S"))
+                            print(column.row)
                         case _:
                             print("thing is not 1, 2 or 3")
                     pass
