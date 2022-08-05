@@ -70,7 +70,7 @@ class Generator:
                             print("thing is not 1, 2 or 3")
                     pass
 
-                    match column.date:
+                    match column.date.upper():
                         case "BIRTHDAY":
                             column.row.append(self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
                             print(column.row)
