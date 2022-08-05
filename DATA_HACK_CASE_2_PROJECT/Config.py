@@ -32,6 +32,13 @@ START_YEAR = str("-30y")
 MIN_A = int()
 MAX_B = int()
 RANDOM = random.randint(MIN_A, MAX_B)
+
+#Чтение из JSON
+import json
+with open('data.json', 'r') as outfile:
+    json.dump(data, outfile)
+    print(data)
+
 # Задание строк фиксированной и нефиксироанной (но ограниченной) длины из заданного диапазона символов
 # Задание значений для полей типа date и timestamp из заданного диапазона
 # Задание чисел и строк из заданного набора значений. Например: (123, 456, 78) или ('code_1','code_2','code_3').

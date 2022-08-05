@@ -4,5 +4,34 @@ data = {
     "MIN_YEAR_AGE": "-30y",
     "MAX_YEAR_AGE": "-20y",
     "START_YEAR": "-30y",
-    "JOIN_INDEX_ARR": [[1,2],[0,3], [4,5]]
+    "JOIN_INDEX_ARR": [[1,2],[0,3], [4,5]],
+    //  "FIO_EN": ["surname_EN":"KONOVALOV", "name_EN":"IVAN", "patronymic_EN",:"VIKTOROVICH"],
+    "FIO_RU": ["surname_RU":"Коновалов", "name_RU":"Иван", "secondname_RU":"Викторович"],
+    //  "CYTI_EN": "CITY",
+    //  "CYTI_EN": "CITY",
+    "CYTI_RU": "ГОРОД",
+    "PHONE": "8 (023) 739-1431",
+    "NUMBER_RANGE": [[-50,150],[30,100]],
+    "STRING_FIXED":
+    {
+        "TRUE":
+        {
+            "STRING_MIN": "0",
+            "STRING_MAX": "100"
+        },
+        "FALSE":
+         {
+            "STRING_MIN": "30",
+            "STRING_MAX": "60"
+        }
+    },
+    "STRING_RANGE":['A','B',['C','E']],
+    "TIMESTAMP_MIN":"20020511235859"
+    "TIMESTAMP_MAX":"20220511235859"
+    "NUMBER_TEMPLATES":[[1,2,3],[5,6,7],[1,2]],
+    "STRING_TEMPLATES":["CODEX","RUNNER","GUN"],
+    "STRING_MASK_1": "MY_####",
+    "STRING_MASK_2": "MY_****",
+    "NUMBER_MASK_1": "12####34",
+    "NUMBER_MASK_2": "12****34"
 }
