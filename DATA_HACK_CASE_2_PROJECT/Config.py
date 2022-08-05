@@ -1,4 +1,4 @@
-
+#import random
 '''
     This python script describes a Configuration information
 '''
@@ -29,6 +29,9 @@ MAX_YEAR_AGE = str("-20y")
 START_YEAR = str("-30y")
 
 # Числа из диапозона
+MIN_A = int()
+MAX_B = int()
+RANDOM = random.randint(MIN_A, MAX_B)
 # Задание строк фиксированной и нефиксироанной (но ограниченной) длины из заданного диапазона символов
 # Задание значений для полей типа date и timestamp из заданного диапазона
 # Задание чисел и строк из заданного набора значений. Например: (123, 456, 78) или ('code_1','code_2','code_3').
