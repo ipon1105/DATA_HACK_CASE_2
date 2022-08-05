@@ -31,4 +31,6 @@ class Table:
     # The column_array field describes array of Column elements
     column_array = list(Column)
 
+    # An array filled with data
+    rows: None
     pass
