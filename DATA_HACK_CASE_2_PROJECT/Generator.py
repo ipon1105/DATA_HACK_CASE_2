@@ -58,6 +58,25 @@ class Generator:
                         case "Phone_number":
                             column.row.append(self.fake.phone_number())
                             print(column.row)
+                        case "user_name":
+                            column.row.append(self.fake.user_name())
+                            print(column.row)
+
+                        case "ip":
+                            column.row.append(self.fake.ipv4())
+                            print(column.row)
+
+                        case _:
+                            print("thing is not 1, 2 or 3")
+                    pass
+
+                    match column.date:
+                        case "birthday":
+                            column.row.append(self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
+                            print(column.row)
+                        case "visits":
+                            column.row.append(self.fake.time(pattern="%H:%M:%S"))
+                            print(column.row)
                         case _:
                             print("thing is not 1, 2 or 3")
                     pass

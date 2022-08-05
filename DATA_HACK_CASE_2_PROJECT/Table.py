@@ -14,7 +14,7 @@ class Column:
     name: str
 
     # The type field describes one of the possible column types
-    type: int
+    date: int
 
     # An array of elements
     row: list = None
