@@ -1,5 +1,5 @@
 import Table
-import Config
+from Config import Config
 from faker import Faker
 
 '''
@@ -27,8 +27,9 @@ class Generator:
         for table in self.table_arr:
             for column in table.column_array:
                 column.row = list()
-
-        self.fake = Faker(Config.LOCALIZATION)
+        self.conf = Config
+        self.conf.read(self.conf)
+        self.fake = Faker(Config.getConf(self.conf, "LOCALIZATION"))
         pass
 
     # A function that generates an array of data into a table(s)
@@ -40,6 +41,7 @@ class Generator:
         else:
             for table in self.table_arr:
                 for column in table.column_array:
+                    self.define(table.name, column)
                     match column.name.upper():
                         case "FIO":
                             column.row.append(self.fake.name())
@@ -89,6 +91,6 @@ class Generator:
         pass
 
     def define(self, table_name: str, col: Table.Column):
-
+        self.conf.get(self.conf, [table_name, col])
         pass
     pass

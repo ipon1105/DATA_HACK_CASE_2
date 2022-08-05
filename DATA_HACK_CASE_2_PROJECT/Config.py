@@ -14,16 +14,74 @@ class Config:
     CONFIG_TYPE_3 = CONFIG_TYPE_DATE        = int(3)  #date
     CONFIG_TYPE_4 = CONFIG_TYPE_TIMESTAMP   = int(4)  #timestamp
 
-    #Чтение из JSON
+    # Base Constucter
+    def __init__(self):
+        pass
+
+    # Read JSON file
     def read(self):
         with open("data.json") as d:
             #self.conf - information from configuration
             self.conf = json.load(d)
+
         pass
 
+    def getConf(self, confName):
+        return self.conf[confName]
+
     def get(self, info):
-        table_name = info(0)
-        column = info(1)
+        column = info[1]
+        for t_n in self.conf["TABLES"]:
+            if (info[0] == t_n):
+                for c_n in self.conf['TABLES'][t_n]:
+                    if (column.name == c_n):
+                        match column.type:
+                            case self.CONFIG_TYPE_INT:
+                                for option in self.conf['TABLES'][t_n][c_n]:
+                                    print(option)
+                                    pass
+                                #NUMBER_MASK
+                                #NUMBER_TEMPLATES
+                                #NUMBER_RANGE
+                                pass
+                            case self.CONFIG_TYPE_STR:
+                                for option in self.conf['TABLES'][t_n][c_n]:
+                                    print(option)
+                                    pass
+                                #STRING_MASK
+                                #STRING_FIXED
+                                #STRING_MIN
+                                #STRING_MAX
+                                #STRING_RANGE
+                                #STRING_TEMPLATES
+                                pass
+                            case self.CONFIG_TYPE_FLOAT:
+                                for option in self.conf['TABLES'][t_n][c_n]:
+                                    print(option)
+                                    pass
+                                #NUMBER_MASK
+                                #NUMBER_TEMPLATES
+                                #NUMBER_RANGE
+                                pass
+                            case self.CONFIG_TYPE_DATE:
+                                for option in self.conf['TABLES'][t_n][c_n]:
+                                    print(option)
+                                    pass
+                                #TIMESTAMP_MIN
+                                #TIMESTAMP_MAX
+                                pass
+                            case self.CONFIG_TYPE_TIMESTAMP:
+                                for option in self.conf['TABLES'][t_n][c_n]:
+                                    print(option)
+                                    pass
+                                #START_YEAR
+                                #MAX_YEAR_AGE
+                                #MIN_YEAR_AGE
+                                pass
+                        pass
+                    pass
+                pass
+            pass
         pass
     # Count of rows to generator
     # FIELD_COUNT = int(100)
@@ -67,7 +125,7 @@ class Config:
     # TIMESTAMP_MAX = 20220511235859
 
     # Templates to numbers
-    # NUMBER_TEMPLATES = [[1,2,3],[5,6,7],[1,2]]
+    # NUMBER_TEMPLATES = [960, 1080, 1280, 1920]
 
     # Templates to strings
     # STRING_TEMPLATES = ["CODEX","RUNNER","GUN"]
