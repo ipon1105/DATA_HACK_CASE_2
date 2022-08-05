@@ -1,3 +1,6 @@
+from faker import Faker
+
+import Config
 from Config import CONFIG_TYPE_STR, CONFIG_TYPE_INT
 from Generator import Generator
 from Table import Table, Column
