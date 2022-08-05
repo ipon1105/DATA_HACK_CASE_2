@@ -46,23 +46,23 @@ class Generator:
                         case "FIO":
                             column.row.append(self.fake.name())
                             print(column.row)
-                        case "city":
+                        case "CITY":
                             column.row.append(self.fake.city())
                             print(column.row)
-                        case "job":
+                        case "JOB":
                             column.row.append(self.fake.job())
                             print(column.row)
-                        case "email":
+                        case "EMAIL":
                             column.row.append(self.fake.email())
                             print(column.row)
-                        case "Phone_number":
+                        case "PHONE_NUMBER":
                             column.row.append(self.fake.phone_number())
                             print(column.row)
-                        case "user_name":
+                        case "USER_NAME":
                             column.row.append(self.fake.user_name())
                             print(column.row)
 
-                        case "ip":
+                        case "IP":
                             column.row.append(self.fake.ipv4())
                             print(column.row)
 
@@ -71,10 +71,10 @@ class Generator:
                     pass
 
                     match column.date:
-                        case "birthday":
+                        case "BIRTHDAY":
                             column.row.append(self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
                             print(column.row)
-                        case "visits":
+                        case "VISIT":
                             column.row.append(self.fake.time(pattern="%H:%M:%S"))
                             print(column.row)
                         case _:
