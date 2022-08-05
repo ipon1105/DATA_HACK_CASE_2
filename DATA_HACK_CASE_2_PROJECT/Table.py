@@ -16,8 +16,6 @@ class Column:
     # The type field describes one of the possible column types
     type: int
 
-    # An array storing a certain number of elements
-    array: list = None
     pass
 
 @dataclass
