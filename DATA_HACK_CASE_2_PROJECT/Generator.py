@@ -1,6 +1,6 @@
 import Table
 import Config
-#from faker import Faker
+from faker import Faker
 
 '''
     This python script describes a Generator
@@ -8,41 +8,54 @@ import Config
 '''
 
 
-import array as arr
-numbers = arr.array('i',[10.0,20,30])
-print(numbers)
-#output
-#Traceback (most recent call last):
-# File "/Users/dionysialemonaki/python_articles/demo.py", line 14, in <module>
-#   numbers = arr.array('i',[10.0,20,30])
-#TypeError: 'float' object cannot be interpreted as an integer
-
+'''
+        for i in self.table_arr:
+            print("Table name: " + i.name + ";")
+            print("Primary index: " + str(i.primary_index) + ";")
+            print("Columns:")
+            for j in i.column_array:
+                print(j.name + "-" + str(j.type))
+'''
 class Generator:
     "Class for generating data to the table(s)"
 
-    # The table_arr field describes the array of Table classes
-    table_arr: list(Table)
 
     # Constructor that accepts an array of tables to fill in
-    def __init__(self, table_arr: list(Table)):
+    def __init__(self, table_arr):
+        # The table_arr field describes the array of Table classes
         self.table_arr = table_arr
+
+        for table in self.table_arr:
+            for column in table.column_array:
+                column.row = list()
+
+        self.fake = Faker(Config.LOCALIZATION)
+        #self.fake = Faker()
         pass
 
     # A function that generates an array of data into a table(s)
     def run(self):
 
         # Determine whether to use join
-        if (True):
+        if (False):
             pass
         else:
-
-            for tables in self.table_arr:
-                for c in tables.column_array:
-                    if (c.name == "name"):
-                        f
+            for table in self.table_arr:
+                for column in table.column_array:
+                    match column.name:
+                        case "FIO":
+                            column.row.append(self.fake.name())
+                            print(column.row)
+                        case 2:
+                            print("thing is 2")
+                        case 3:
+                            print("thing is 3")
+                        case _:
+                            print("thing is not 1, 2 or 3")
                     pass
+
                 pass
-            pass
+
         return None
         pass
 

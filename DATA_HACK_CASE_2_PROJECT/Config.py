@@ -1,4 +1,4 @@
-#import random
+import random
 '''
     This python script describes a Configuration information
 '''

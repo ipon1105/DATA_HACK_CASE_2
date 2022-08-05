@@ -16,6 +16,8 @@ class Column:
     # The type field describes one of the possible column types
     type: int
 
+    # An array of elements
+    row: list = None
     pass
 
 @dataclass
@@ -29,9 +31,5 @@ class Table:
     primary_index: int
 
     # The column_array field describes array of Column elements
-<<<<<<< HEAD
-    column_array = list(Column)
-=======
     column_array: list[Column]
->>>>>>> 64f258f383256eb3e6190af590929d9d18808db6
     pass
