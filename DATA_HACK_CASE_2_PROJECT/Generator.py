@@ -7,7 +7,6 @@ from faker import Faker
     which generate the massive data at table(s)
 '''
 
-
 '''
         for i in self.table_arr:
             print("Table name: " + i.name + ";")
@@ -42,7 +41,7 @@ class Generator:
         else:
             for table in self.table_arr:
                 for column in table.column_array:
-                    match column.name:
+                    match column.name.toupper():
                         case "FIO":
                             column.row.append(self.fake.name())
                             print(column.row)
@@ -64,6 +63,10 @@ class Generator:
 
                         case "IP":
                             column.row.append(self.fake.ipv4())
+                            print(column.row)
+
+                        case "ID":
+                            column.row.append(self.fake.id())
                             print(column.row)
 
                         case _:

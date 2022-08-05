@@ -7,10 +7,42 @@ from Table import Table, Column
 
 if __name__ == '__main__':
     # t1.
-    t1 = Table("Table_1", 0, [Column("id", CONFIG_TYPE_INT), Column("FIO", CONFIG_TYPE_STR)])
+    Product = Table("Product", 0, [
+        Column("Number", CONFIG_TYPE_INT),
+        Column("Manufacturer", CONFIG_TYPE_STR),
+        Column("Type", CONFIG_TYPE_STR)
+    ])
 
     #t2.
-    t2 = Table("Table_2", 1, [Column("id", CONFIG_TYPE_INT), Column("ADDRESS", CONFIG_TYPE_STR)])
+    PC = Table("PC", 0, [
+        Column("Code", CONFIG_TYPE_INT),
+        Column("Number", CONFIG_TYPE_INT),
+        Column("Speed", CONFIG_TYPE_INT),
+        Column("Memory", CONFIG_TYPE_INT),
+        Column("HD", CONFIG_TYPE_INT),
+        Column("ReadSpeed", CONFIG_TYPE_INT),
+        Column("Price", CONFIG_TYPE_INT)
+        ])
 
-    gen = Generator([t1, t2])
+    #t3.
+    Notebook = Table("Notebook", 0, [
+        Column("Code", CONFIG_TYPE_INT),
+        Column("Number", CONFIG_TYPE_INT),
+        Column("Speed", CONFIG_TYPE_INT),
+        Column("Memory", CONFIG_TYPE_INT),
+        Column("HD", CONFIG_TYPE_INT),
+        Column("Display", CONFIG_TYPE_INT),
+        Column("Price", CONFIG_TYPE_INT)
+        ])
+
+    #t4.
+    Printer = Table("Printer", 0, [
+        Column("Code", CONFIG_TYPE_INT),
+        Column("Number", CONFIG_TYPE_INT),
+        Column("Color", CONFIG_TYPE_INT),
+        Column("Type", CONFIG_TYPE_STR),
+        Column("Price", CONFIG_TYPE_INT)
+        ])
+
+    gen = Generator([Product, PC, Notebook, Printer])
     gen.run()
