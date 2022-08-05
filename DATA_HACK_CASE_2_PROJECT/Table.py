@@ -31,5 +31,5 @@ class Table:
     primary_index: int
 
     # The column_array field describes array of Column elements
-    column_array = list(Column)
+    column_array: list[Column]
     pass
