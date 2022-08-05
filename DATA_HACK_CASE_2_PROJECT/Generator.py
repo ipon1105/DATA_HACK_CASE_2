@@ -29,7 +29,6 @@ class Generator:
                 column.row = list()
 
         self.fake = Faker(Config.LOCALIZATION)
-        #self.fake = Faker()
         pass
 
     # A function that generates an array of data into a table(s)
@@ -41,7 +40,7 @@ class Generator:
         else:
             for table in self.table_arr:
                 for column in table.column_array:
-                    match column.name.toupper():
+                    match column.name.upper():
                         case "FIO":
                             column.row.append(self.fake.name())
                             print(column.row)
@@ -73,7 +72,8 @@ class Generator:
                             print("thing is not 1, 2 or 3")
                     pass
 
-                    match column.date.upper():
+                    '''
+                    match column.type.upper():
                         case "BIRTHDAY":
                             column.row.append(self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
                             print(column.row)
@@ -83,7 +83,7 @@ class Generator:
                         case _:
                             print("thing is not 1, 2 or 3")
                     pass
-
+                    '''
                 pass
 
         return None
