@@ -26,8 +26,6 @@
     "TIMESTAMP_MAX":"20220511235859",
     "NUMBER_TEMPLATES":[[1,2,3],[5,6,7],[1,2]],
     "STRING_TEMPLATES":["CODEX","RUNNER","GUN"],
-    "STRING_MASK_1": "MY_####",
-    "STRING_MASK_2": "MY_****",
-    "NUMBER_MASK_1": "12####34",
-    "NUMBER_MASK_2": "12****34"
+    "STRING_MASK": "MY_####",
+    "NUMBER_MASK": "12####34"
 }

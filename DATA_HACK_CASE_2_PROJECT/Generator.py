@@ -86,7 +86,9 @@ class Generator:
                     '''
                 pass
 
-        return None
         pass
 
+    def define(self, table_name: str, col: Table.Column):
+
+        pass
     pass
