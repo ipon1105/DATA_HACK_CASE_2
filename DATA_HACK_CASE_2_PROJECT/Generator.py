@@ -46,10 +46,18 @@ class Generator:
                         case "FIO":
                             column.row.append(self.fake.name())
                             print(column.row)
-                        case 2:
-                            print("thing is 2")
-                        case 3:
-                            print("thing is 3")
+                        case "city":
+                            column.row.append(self.fake.city())
+                            print(column.row)
+                        case "job":
+                            column.row.append(self.fake.job())
+                            print(column.row)
+                        case "email":
+                            column.row.append(self.fake.email())
+                            print(column.row)
+                        case "Phone_number":
+                            column.row.append(self.fake.phone_number())
+                            print(column.row)
                         case _:
                             print("thing is not 1, 2 or 3")
                     pass
