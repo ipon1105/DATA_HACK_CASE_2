@@ -6,14 +6,14 @@ import Table
     This python script describes a Configuration information
 '''
 
-class Config:
 
+class Config:
     # The default types of data
-    CONFIG_TYPE_0 = CONFIG_TYPE_INT       = int(0)  #int
-    CONFIG_TYPE_1 = CONFIG_TYPE_STR       = int(1)  #string
-    CONFIG_TYPE_2 = CONFIG_TYPE_FLOAT     = int(2)  #float
-    CONFIG_TYPE_3 = CONFIG_TYPE_DATE      = int(3)  #date
-    CONFIG_TYPE_4 = CONFIG_TYPE_TIMESTAMP = int(4)  #timestamp
+    CONFIG_TYPE_0 = CONFIG_TYPE_INT = int(0)  # int
+    CONFIG_TYPE_1 = CONFIG_TYPE_STR = int(1)  # string
+    CONFIG_TYPE_2 = CONFIG_TYPE_FLOAT = int(2)  # float
+    CONFIG_TYPE_3 = CONFIG_TYPE_DATE = int(3)  # date
+    CONFIG_TYPE_4 = CONFIG_TYPE_TIMESTAMP = int(4)  # timestamp
 
     # Base Constucter
     def __init__(self):
@@ -32,7 +32,7 @@ class Config:
             elif (key == 'LOCALIZATION'):
                 self.LOCALIZATION = self.conf['LOCALIZATION']
             elif (key == 'GENERAL_COUNT'):
-                self.GENERAL_COUNT  = self.conf['GENERAL_COUNT']
+                self.GENERAL_COUNT = self.conf['GENERAL_COUNT']
             elif (key == 'COUNT'):
                 self.COUNT = self.conf['COUNT']
 
@@ -63,30 +63,31 @@ class Config:
 
     def dating(self, key, value, column):
         if (key == 'NUMBER_MASK' or
-            key == 'STRING_MASK' or
-            key == 'DATE_MASK'):
+                key == 'STRING_MASK' or
+                key == 'DATE_MASK'):
             column.rules.Mask = value
         if (key == 'NUMBER_TEMPLATES' or
-            key == 'STRING_TEMPLATES' or
-            key == 'DATE_TEMPLATES'):
+                key == 'STRING_TEMPLATES' or
+                key == 'DATE_TEMPLATES'):
             column.rules.Templates = value
         if (key == 'NUMBER_RANGE' or
-            key == 'STRING_RANGE' or
-            key == 'DATE_RANGE'):
+                key == 'STRING_RANGE' or
+                key == 'DATE_RANGE'):
             column.rules.Range = value
         if (key == 'NUMBER_REPEAT' or
-            key == 'STRING_FIXING' or
-            key == 'DATE_REPEAT'):
+                key == 'STRING_FIXING' or
+                key == 'DATE_REPEAT'):
             column.rules.Flag = value
         if (key == 'NUMBER_MIN' or
-            key == 'STRING_MIN' or
-            key == 'DATE_MIN'):
+                key == 'STRING_MIN' or
+                key == 'DATE_MIN'):
             column.rules.Min = value
         if (key == 'NUMBER_MAX' or
-            key == 'STRING_MAX' or
-            key == 'DATE_MAX'):
+                key == 'STRING_MAX' or
+                key == 'DATE_MAX'):
             column.rules.Max = value
         pass
+
     # Random seed
     RANDOM_SEED = 100
 
