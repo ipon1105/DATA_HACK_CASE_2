@@ -24,25 +24,12 @@ class Generator:
 
     # Constructor that accepts an array of tables to fill in
 
-    def __init__(self, table_arr):
-        # Start load data from JSON
+    def __init__(self, table_arr, LOCALIZATION=None):
         self.data = self.conf.read(self.conf)
 
-        # The table_arr field describes the array of Table classes
-        self.table_arr = table_arr
-
-    def __init__(self, table_arr, LOCALIZATION=None):
-        self.conf.read(self.conf)
 
         # The table_arr field describes the array of Table classes
         self.table_arr = table_arr
-        for table in self.table_arr:
-            for column in table.column_array:
-                column.row = list()
-        self.fake = Faker(Config.getConf(self.conf, LOCALIZATION))
-        Faker.seed(seed=self.conf.getConf(self.conf, "RANDOM_SEED"))
-
-        megaTable = self.conf.getConf(self.conf, "TABLES")
 
         # Faker init
         self.fake = Faker(self.conf.LOCALIZATION)
@@ -55,16 +42,13 @@ class Generator:
                     for key_column, value_column in self.data["TABLES"][table_arr_a].items():
                         if (key_column == "COUNT"):
                             table_arr_b.count = value_column
-                        for column_arr_b in self.table_arr.column_array:
-                            if (key_column == column_arr_b.name):
-
-                                for key, value in self.data["TABLES"][table_arr_a][key_column]:
-                                    Config.dating(key, value, column_arr_b)
+                        else:
+                            for column_arr_b in table_arr_b.column_array:
+                                if (key_column == column_arr_b.name):
+                                    for key, value in self.data["TABLES"][table_arr_a][key_column]:
+                                        Config.dating(key, value, column_arr_b)
 
                                 pass
-
-
-
 
     pass
 

@@ -61,9 +61,6 @@ class Config:
         return self.conf
         pass
 
-    def getConf(self, confName):
-        return self.conf[confName]
-
     def dating(self, key, value, column):
         if (key == 'NUMBER_MASK' or
             key == 'STRING_MASK' or
