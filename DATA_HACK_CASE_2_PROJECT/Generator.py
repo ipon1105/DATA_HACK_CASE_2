@@ -78,7 +78,7 @@ class Generator:
 
 
                         #TODO: Для каждого столбца по необходимости предусмотреть генерацию по маске, как в функции number_holder
-                        self.rabd_date(column)
+                        self.rand_date(column)
 
                         pass
                     pass
@@ -86,7 +86,7 @@ class Generator:
             pass
         pass
 
-    def rabd_date(self, column: Table.Column):
+    def rand_date(self, column: Table.Column):
         match column.name.upper():
             case "FIO":
                 column.row.append(self.fake.name())
