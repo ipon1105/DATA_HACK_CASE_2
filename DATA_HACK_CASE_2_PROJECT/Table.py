@@ -10,12 +10,12 @@ from dataclasses import dataclass
 class ColumnRules:
     "The class denotes a Rules for Columns"
 
-    Mask:       str = None
-    Templates:  list = None
-    Range:      list = None
-    Fixed:      bool = None
-    StartYear:  str = None
-
+    Mask:   str = None
+    Templates: list = None
+    Range:  list = None
+    Flag:   bool = None
+    Min:    int = None
+    Max:    int = None
     pass
 
 @dataclass
@@ -29,7 +29,7 @@ class Column:
     type: int
 
     # An array of elements
-    row: list = None
+    row: list() = None
 
     # Template to create elements
     rules = ColumnRules
@@ -42,9 +42,9 @@ class Table:
     # The name field describes the table name
     name: str
 
-    # The primary_index field describes the primary field index
-    primary_index: int
-
     # The column_array field describes array of Column elements
     column_array: list[Column]
+
+    # Count of elements
+    count: int = None
     pass

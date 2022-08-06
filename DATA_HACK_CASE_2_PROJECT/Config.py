@@ -1,7 +1,6 @@
-import random
 import json
 
-from Table import ColumnRules
+import Table
 
 '''
     This python script describes a Configuration information
@@ -18,13 +17,48 @@ class Config:
 
     # Base Constucter
     def __init__(self):
-        # self.conf - information from configuration
         self.conf = None
 
     # Read JSON file
     def read(self):
         with open("data.json") as d:
             self.conf = json.load(d)
+
+        for key, value in self.conf.items():
+            if (key == "TABLES"):
+                continue
+            if (key == 'RANDOM_SEED'):
+                self.RANDOM_SEED = self.conf['RANDOM_SEED']
+            elif (key == 'LOCALIZATION'):
+                self.LOCALIZATION = self.conf['LOCALIZATION']
+            elif (key == 'GENERAL_COUNT'):
+                self.GENERAL_COUNT  = self.conf['GENERAL_COUNT']
+            elif (key == 'COUNT'):
+                self.COUNT = self.conf['COUNT']
+
+        '''
+        self.NUMBER_MASK        = self.conf['NUMBER_MASK']      if self.conf['NUMBER_MASK']         != None else self.NUMBER_MASK
+        self.NUMBER_TEMPLATES   = self.conf['NUMBER_TEMPLATES'] if self.conf['NUMBER_TEMPLATES']    != None else self.NUMBER_TEMPLATES
+        self.NUMBER_RANGE       = self.conf['NUMBER_RANGE']     if self.conf['NUMBER_RANGE']        != None else self.NUMBER_RANGE
+        self.NUMBER_REPEAT      = self.conf['NUMBER_REPEAT']    if self.conf['NUMBER_REPEAT']       != None else self.NUMBER_REPEAT
+        self.NUMBER_MIN         = self.conf['NUMBER_MIN']       if self.conf['NUMBER_MIN']          != None else self.NUMBER_MIN
+        self.NUMBER_MAX         = self.conf['NUMBER_MAX']       if self.conf['NUMBER_MAX']          != None else self.NUMBER_MAX
+
+        self.STRING_MASK        = self.conf['STRING_MASK']      if self.conf['STRING_MASK']         != None else self.STRING_MASK
+        self.STRING_TEMPLATES   = self.conf['STRING_TEMPLATES'] if self.conf['STRING_TEMPLATES']    != None else self.STRING_TEMPLATES
+        self.STRING_RANGE       = self.conf['STRING_RANGE']     if self.conf['STRING_RANGE']        != None else self.STRING_RANGE
+        self.STRING_FIXING      = self.conf['STRING_FIXING']    if self.conf['STRING_FIXING']       != None else self.STRING_FIXING
+        self.STRING_MIN         = self.conf['STRING_MIN']       if self.conf['STRING_MIN']          != None else self.STRING_MIN
+        self.STRING_MAX         = self.conf['STRING_MAX']       if self.conf['STRING_MAX']          != None else self.STRING_MAX
+
+        self.DATE_MASK        = self.conf['DATE_MASK']      if self.conf['DATE_MASK']         != None else self.DATE_MASK
+        self.DATE_TEMPLATES   = self.conf['DATE_TEMPLATES'] if self.conf['DATE_TEMPLATES']    != None else self.DATE_TEMPLATES
+        self.DATE_RANGE       = self.conf['DATE_RANGE']     if self.conf['DATE_RANGE']        != None else self.DATE_RANGE
+        self.DATE_REPEAT      = self.conf['DATE_REPEAT']    if self.conf['DATE_REPEAT']       != None else self.DATE_REPEAT
+        self.DATE_MIN         = self.conf['DATE_MIN']       if self.conf['DATE_MIN']          != None else self.DATE_MIN
+        self.DATE_MAX         = self.conf['DATE_MAX']       if self.conf['DATE_MAX']          != None else self.DATE_MAX
+        '''
+        return self.conf
         pass
 
     def getConf(self, confName):
@@ -46,7 +80,6 @@ class Config:
     NUMBER_REPEAT = True
     NUMBER_MIN = 0
     NUMBER_MAX = 99999999
-    NUMBER_COUNT = GENERAL_COUNT
 
     # Strings
     STRING_MASK = None
@@ -55,7 +88,6 @@ class Config:
     STRING_FIXING = False
     STRING_MIN = 15
     STRING_MAX = 30
-    STRING_COUNT = GENERAL_COUNT
 
     # Dates
     DATE_MASK = None
@@ -64,4 +96,5 @@ class Config:
     DATE_REPEAT = True
     DATE_MIN = 1970
     DATE_MAX = 2022
-    DATE_COUNT = GENERAL_COUNT
+
+    COUNT = GENERAL_COUNT

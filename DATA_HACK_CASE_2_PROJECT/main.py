@@ -1,5 +1,3 @@
-from faker import Faker
-
 from Generator import Generator
 from Table import Table, Column
 from Config import Config
@@ -25,14 +23,14 @@ def printTable(t:Table):
 
 if __name__ == '__main__':
     # t1.
-    Product = Table("Product", 0, [
+    Product = Table("Product", [
         Column("Number", Config.CONFIG_TYPE_INT),
         Column("Manufacturer", Config.CONFIG_TYPE_STR),
         Column("Type", Config.CONFIG_TYPE_STR)
     ])
 
     #t2.
-    PC = Table("PC", 0, [
+    PC = Table("PC", [
         Column("Code", Config.CONFIG_TYPE_INT),
         Column("Number", Config.CONFIG_TYPE_INT),
         Column("Speed", Config.CONFIG_TYPE_INT),
@@ -43,7 +41,7 @@ if __name__ == '__main__':
         ])
 
     #t3.
-    Notebook = Table("Notebook", 0, [
+    Notebook = Table("Notebook", [
         Column("Code", Config.CONFIG_TYPE_INT),
         Column("Number", Config.CONFIG_TYPE_INT),
         Column("Speed", Config.CONFIG_TYPE_INT),
@@ -54,7 +52,7 @@ if __name__ == '__main__':
         ])
 
     #t4.
-    Printer = Table("Printer", 0, [
+    Printer = Table("Printer", [
         Column("Code", Config.CONFIG_TYPE_INT),
         Column("Number", Config.CONFIG_TYPE_INT),
         Column("Color", Config.CONFIG_TYPE_INT),

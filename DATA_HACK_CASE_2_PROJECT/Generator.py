@@ -19,24 +19,29 @@ from faker import Faker
 class Generator:
     "Class for generating data to the table(s)"
 
-    # Instanse configuration file
+    # Instance configuration file
     conf = Config
+    data = None
 
     # Constructor that accepts an array of tables to fill in
     def __init__(self, table_arr):
-        self.conf.read(self.conf)
+        # Start load data from JSON
+        self.data = self.conf.read(self.conf)
 
         # The table_arr field describes the array of Table classes
         self.table_arr = table_arr
-        for table in self.table_arr:
-            for column in table.column_array:
-                column.row = list()
-        self.fake = Faker(Config.getConf(self.conf, "LOCALIZATION"))
-        Faker.seed(seed=self.conf.getConf(self.conf, "RANDOM_SEED"))
 
-        megaTable = self.conf.getConf(self.conf, "TABLES")
+        # Faker init
+        self.fake = Faker(self.conf.LOCALIZATION)
+        Faker.seed(seed=self.conf.RANDOM_SEED)
 
-
+        count_tmp: int
+        # Transfer data from JSON to table_arr
+        for key, value in self.data["TABLES"].:
+            if (key == 'COUNT'):
+                count_tmp = value
+            if (key.find(0, len(key)))
+        megaTable = self.data("TABLES")
         for tableConf in megaTable:
             for tableIn in self.table_arr:
                 if (tableConf == tableIn.name):
