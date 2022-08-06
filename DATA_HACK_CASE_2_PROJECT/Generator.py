@@ -152,74 +152,77 @@ class Generator:
                 for table in self.table_arr:
                     for column in table.column_array:
                         #TODO: Для каждого столбца по необходимости предусмотреть генерацию по маске, как в функции number_holder
-                        match column.name.upper():
-                            case "FIO":
-                                column.row.append(self.fake.name())
-                                print(column.row)
-                                pass
-                            case "CITY":
-                                column.row.append(self.fake.city())
-                                print(column.row)
-                                pass
-                            case "JOB":
-                                column.row.append(self.fake.job())
-                                print(column.row)
-                                pass
-                            case "EMAIL":
-                               column.row.append(self.fake.email())
-                               print(column.row)
-                               pass
-                            case "PHONE_NUMBER":
-                                column.row.append(self.fake.phone_number())
-                                print(column.row)
-                                pass
-                            case "USER_NAME":
-                                column.row.append(self.fake.user_name())
-                                print(column.row)
-                                pass
-                            case "IP":
-                                column.row.append(self.fake.ipv4())
-                                print(column.row)
-                                pass
-                            case "ID":
-                                column.row.append(self.fake.id())
-                                print(column.row)
-                                pass
-                            case "BIRTHDAY":
-                                column.row.append(
-                                self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
-                                print(column.row)
-                                pass
-                            case "VISIT":
-                                column.row.append(self.fake.time(pattern="%H:%M:%S"))
-                                print(column.row)
-                                pass
-                            case _:
-                                match column.type:
-                                    case Config.CONFIG_TYPE_INT:
-                                        column.row.append(self.number_holder(column))
-                                        pass
-                                    case Config.CONFIG_TYPE_FLOAT:
-                                        #TODO: Заменить вызов функции number_holder на соответсвующий float_holder или добавить дробную часть
-                                        column.row.append(self.number_holder(column))
-                                        pass
-                                    case Config.CONFIG_TYPE_STR:
-                                        column.row.append(self.text_holder(column))
-                                        pass
-                                pass
+
                         pass
                     pass
                 pass
             pass
         pass
 
+    def rabd_date(self, column: Table.Column):
+        match column.name.upper():
+            case "FIO":
+                column.row.append(self.fake.name())
+                print(column.row)
+                pass
+            case "CITY":
+                column.row.append(self.fake.city())
+                print(column.row)
+                pass
+            case "JOB":
+                column.row.append(self.fake.job())
+                print(column.row)
+                pass
+            case "EMAIL":
+                column.row.append(self.fake.email())
+                print(column.row)
+                pass
+            case "PHONE_NUMBER":
+                column.row.append(self.fake.phone_number())
+                print(column.row)
+                pass
+            case "USER_NAME":
+                column.row.append(self.fake.user_name())
+                print(column.row)
+                pass
+            case "IP":
+                column.row.append(self.fake.ipv4())
+                print(column.row)
+                pass
+            case "ID":
+                column.row.append(self.fake.id())
+                print(column.row)
+                pass
+            case "BIRTHDAY":
+                column.row.append(
+                    self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
+                print(column.row)
+                pass
+            case "VISIT":
+                column.row.append(self.fake.time(pattern="%H:%M:%S"))
+                print(column.row)
+                pass
+            case _:
+                match column.type:
+                    case Config.CONFIG_TYPE_INT:
+                        column.row.append(self.number_holder(column))
+                        pass
+                    case Config.CONFIG_TYPE_FLOAT:
+                        # TODO: Заменить вызов функции number_holder на соответсвующий float_holder или добавить дробную часть
+                        column.row.append(self.number_holder(column))
+                        pass
+                    case Config.CONFIG_TYPE_STR:
+                        column.row.append(self.text_holder(column))
+                        pass
+                pass
+    pass
     # Function that generic a random text
     def text_holder(self, column: Table.Column):
         if column.rules.Mask:
             mask = column.rules.Mask
 
             # Эта часть отвеает за то, что бы избавиться от всех #
-            #TODO: Добавить возможность заменять несколько решеток на элемент column.rules.Templates
+            # TODO: Добавить возможность заменять несколько решеток на элемент column.rules.Templates
             c_size = 0
             for c in mask:
                 if c == '#':
@@ -257,7 +260,7 @@ class Generator:
 
         if column.rules.Fixed:
             size = column.rules.Range[1] if column.rules.Range != None else self.conf.getConf(self.conf, "STRING_MAX")
-            self.fake.pystr(min_chars=None, max_chars=size)
+            self.fake.pystr(min_chars=0, max_chars=size)
             return self.fake.text()
             pass
 
@@ -297,6 +300,5 @@ class Generator:
                 t = self.fake.random.choice(t)
             return self.fake.random.randint(t[0], t[1])
 
-        # TODO: Необходимо доделать выбор по умолчанию, если он не настроен пользователем (тоесть тот, который без настройки должен быть) например:
         return 0
         pass
