@@ -7,6 +7,18 @@ from dataclasses import dataclass
 '''
 
 @dataclass
+class ColumnRules:
+    "The class denotes a Rules for Columns"
+
+    Mask:       str
+    Templates:  list
+    Range:      list
+    Fixed:      bool
+    StartYear:  str
+
+    pass
+
+@dataclass
 class Column:
     "The class denotes a database column"
 
@@ -18,6 +30,9 @@ class Column:
 
     # An array of elements
     row: list = None
+
+    # Template to create elements
+    rules: ColumnRules = None
     pass
 
 @dataclass

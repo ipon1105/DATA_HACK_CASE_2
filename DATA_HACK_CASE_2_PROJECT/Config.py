@@ -1,6 +1,8 @@
 import random
 import json
 
+from Table import ColumnRules
+
 '''
     This python script describes a Configuration information
 '''
@@ -16,20 +18,20 @@ class Config:
 
     # Base Constucter
     def __init__(self):
-        pass
+        self.conf = None
 
     # Read JSON file
     def read(self):
         with open("data.json") as d:
             #self.conf - information from configuration
             self.conf = json.load(d)
-
         pass
 
     def getConf(self, confName):
         return self.conf[confName]
 
     def get(self, info):
+        temp: list()
         column = info[1]
         for t_n in self.conf["TABLES"]:
             if (info[0] == t_n):
@@ -38,8 +40,9 @@ class Config:
                         match column.type:
                             case self.CONFIG_TYPE_INT:
                                 for option in self.conf['TABLES'][t_n][c_n]:
-                                    print(option)
+                                    temp.append(self.conf['TABLES'][t_n][c_n][option])
                                     pass
+                                print(option + " = " + temp)
                                 #NUMBER_MASK
                                 #NUMBER_TEMPLATES
                                 #NUMBER_RANGE
@@ -115,9 +118,6 @@ class Config:
     # Maximum count of character
     # STRING_MAX = 100
 
-    # Range of character
-    # STRING_RANGE = ["A","B",["C","E"]] # a, b, c - e
-
     # Minimal value of timestamp
     # TIMESTAMP_MIN = 20020511235859
 
@@ -127,7 +127,7 @@ class Config:
     # Templates to numbers
     # NUMBER_TEMPLATES = [960, 1080, 1280, 1920]
 
-    # Templates to strings
+    # Templates to strings and characters
     # STRING_TEMPLATES = ["CODEX","RUNNER","GUN"]
 
     # Mask for a String

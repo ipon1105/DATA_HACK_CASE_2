@@ -8,7 +8,7 @@
                 "STRING_TEMPLATES":["MOSCOW","CHEBOKSARY","GROZNII"]
             },
             "Type": {
-                "STRING_RANGE":[["A","F"],"Z","S","SS"]
+                "STRING_TEMPLATES":[["A","F"],"Z","S","SS"]
             }
         },
         "PC": {
@@ -50,7 +50,6 @@
     "STRING_FIXED": "TRUE",
     "STRING_MIN": "30",
     "STRING_MAX": "60",
-    "STRING_RANGE":["A","B",["C","E"]],
     "TIMESTAMP_MIN":"20020511235859",
     "TIMESTAMP_MAX":"20220511235859",
     "NUMBER_TEMPLATES":[960, 1080, 1280, 1920],
