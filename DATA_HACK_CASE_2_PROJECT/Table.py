@@ -10,11 +10,11 @@ from dataclasses import dataclass
 class ColumnRules:
     "The class denotes a Rules for Columns"
 
-    Mask:       str
-    Templates:  list
-    Range:      list
-    Fixed:      bool
-    StartYear:  str
+    Mask:       str = None
+    Templates:  list = None
+    Range:      list = None
+    Fixed:      bool = None
+    StartYear:  str = None
 
     pass
 
@@ -32,7 +32,7 @@ class Column:
     row: list = None
 
     # Template to create elements
-    rules: ColumnRules = None
+    rules = ColumnRules
     pass
 
 @dataclass

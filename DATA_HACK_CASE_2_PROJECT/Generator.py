@@ -18,13 +18,14 @@ from faker import Faker
 class Generator:
     "Class for generating data to the table(s)"
 
+    # Instanse configuration file
+    conf = Config
 
     # Constructor that accepts an array of tables to fill in
     def __init__(self, table_arr):
-        # The table_arr field describes the array of Table classes
-        self.conf = Config
         self.conf.read(self.conf)
 
+        # The table_arr field describes the array of Table classes
         self.table_arr = table_arr
         for table in self.table_arr:
             for column in table.column_array:

@@ -30,62 +30,7 @@ class Config:
     def getConf(self, confName):
         return self.conf[confName]
 
-    def get(self, info):
-        temp: list()
-        column = info[1]
-        for t_n in self.conf["TABLES"]:
-            if (info[0] == t_n):
-                for c_n in self.conf['TABLES'][t_n]:
-                    if (column.name == c_n):
-                        match column.type:
-                            case self.CONFIG_TYPE_INT:
-                                for option in self.conf['TABLES'][t_n][c_n]:
-                                    temp.append(self.conf['TABLES'][t_n][c_n][option])
-                                    pass
-                                print(option + " = " + temp)
-                                #NUMBER_MASK
-                                #NUMBER_TEMPLATES
-                                #NUMBER_RANGE
-                                pass
-                            case self.CONFIG_TYPE_STR:
-                                for option in self.conf['TABLES'][t_n][c_n]:
-                                    print(option)
-                                    pass
-                                #STRING_MASK
-                                #STRING_FIXED
-                                #STRING_MIN
-                                #STRING_MAX
-                                #STRING_RANGE
-                                #STRING_TEMPLATES
-                                pass
-                            case self.CONFIG_TYPE_FLOAT:
-                                for option in self.conf['TABLES'][t_n][c_n]:
-                                    print(option)
-                                    pass
-                                #NUMBER_MASK
-                                #NUMBER_TEMPLATES
-                                #NUMBER_RANGE
-                                pass
-                            case self.CONFIG_TYPE_DATE:
-                                for option in self.conf['TABLES'][t_n][c_n]:
-                                    print(option)
-                                    pass
-                                #TIMESTAMP_MIN
-                                #TIMESTAMP_MAX
-                                pass
-                            case self.CONFIG_TYPE_TIMESTAMP:
-                                for option in self.conf['TABLES'][t_n][c_n]:
-                                    print(option)
-                                    pass
-                                #START_YEAR
-                                #MAX_YEAR_AGE
-                                #MIN_YEAR_AGE
-                                pass
-                        pass
-                    pass
-                pass
-            pass
-        pass
+    
     # Count of rows to generator
     # FIELD_COUNT = int(100)
 
