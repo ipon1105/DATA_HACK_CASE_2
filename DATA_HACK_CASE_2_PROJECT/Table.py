@@ -6,17 +6,19 @@ from dataclasses import dataclass
     The description of the table structure is a dataclass.
 '''
 
+
 @dataclass
 class ColumnRules:
     "The class denotes a Rules for Columns"
 
-    Mask:   str = None
+    Mask: str = None
     Templates: list = None
-    Range:  list = None
-    Flag:   bool = None
-    Min:    int = None
-    Max:    int = None
+    Range: list = None
+    Flag: bool = None
+    Min: int = None
+    Max: int = None
     pass
+
 
 @dataclass
 class Column:
@@ -34,6 +36,7 @@ class Column:
     # Template to create elements
     rules = ColumnRules
     pass
+
 
 @dataclass
 class Table:
