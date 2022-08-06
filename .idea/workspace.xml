@@ -30,7 +30,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
 }</component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Docker.Dock">
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="DATA_HACK_CASE_2" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -52,6 +52,21 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="Dock" type="docker-deploy" factoryName="dockerfile" server-name="Docker">
+      <deployment type="dockerfile">
+        <settings>
+          <option name="imageTag" value="data_hack_case_2_3" />
+          <option name="buildOnly" value="true" />
+          <option name="containerName" value="" />
+          <option name="sourceFilePath" value="DATA_HACK_CASE_2_PROJECT/Dockerfile" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Docker.Dock" />
+      <item itemvalue="Python.main" />
+    </list>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
