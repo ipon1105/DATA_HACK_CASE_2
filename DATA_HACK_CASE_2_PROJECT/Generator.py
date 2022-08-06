@@ -23,7 +23,7 @@ class Generator:
     conf = Config
 
     # Constructor that accepts an array of tables to fill in
-    def __init__(self, table_arr):
+    def __init__(self, table_arr, LOCALIZATION=None):
         self.conf.read(self.conf)
 
         # The table_arr field describes the array of Table classes
@@ -31,7 +31,7 @@ class Generator:
         for table in self.table_arr:
             for column in table.column_array:
                 column.row = list()
-        self.fake = Faker(Config.getConf(self.conf, "LOCALIZATION"))
+        self.fake = Faker(Config.getConf(self.conf, LOCALIZATION))
         Faker.seed(seed=self.conf.getConf(self.conf, "RANDOM_SEED"))
 
         megaTable = self.conf.getConf(self.conf, "TABLES")
