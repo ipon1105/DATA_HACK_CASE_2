@@ -2,13 +2,13 @@
     "TABLES": {
         "Product": {
             "Number": {
-                "NUMBER_MASK": "1219###"
+                "NUMBER_MASK": "01####10"
             },
             "Manufacturer": {
-                "STRING_TEMPLATES":["MOSCOW","CHEBOKSARY","GROZNII"]
+                "STRING_TEMPLATES":["MOSCOW","CHEBOKSARY","GROZNII", "SEVASTOPOL", "KAZAN"]
             },
             "Type": {
-                "STRING_TEMPLATES":["A","F","Z","S","SS"]
+                "STRING_TEMPLATES":["A","B","F","Z","S","SS"]
             }
         },
         "PC": {

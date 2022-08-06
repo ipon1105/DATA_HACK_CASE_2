@@ -62,6 +62,14 @@ if __name__ == '__main__':
         Column("Price", Config.CONFIG_TYPE_INT)
         ])
 
+    # TODO: Должен быть отдельный файл где описывается таблицы и значения по умолчанию
+
+    # TODO: ВЫВОД SPARKET
+
+    # TODO: Для каждой таблицы своё количество строк
+
+    # TODO: DOCKER = YANDEX + GOOGLE оф сайты
+
     gen = Generator([Product, PC, Notebook, Printer])
     gen.run()
     printTable(Product)

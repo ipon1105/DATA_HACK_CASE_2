@@ -219,7 +219,7 @@ class Generator:
             mask = column.rules.Mask
 
             # Эта часть отвеает за то, что бы избавиться от всех #
-            #TODO: Добавить возможность заменять несколько решеток на элемент column.rules.Templates
+            # TODO: Добавить возможность заменять несколько решеток на элемент column.rules.Templates
             c_size = 0
             for c in mask:
                 if c == '#':
@@ -257,7 +257,7 @@ class Generator:
 
         if column.rules.Fixed:
             size = column.rules.Range[1] if column.rules.Range != None else self.conf.getConf(self.conf, "STRING_MAX")
-            self.fake.pystr(min_chars=None, max_chars=size)
+            self.fake.pystr(min_chars=0, max_chars=size)
             return self.fake.text()
             pass
 
@@ -297,6 +297,5 @@ class Generator:
                 t = self.fake.random.choice(t)
             return self.fake.random.randint(t[0], t[1])
 
-        # TODO: Необходимо доделать выбор по умолчанию, если он не настроен пользователем (тоесть тот, который без настройки должен быть) например:
         return 0
         pass
