@@ -10,6 +10,15 @@ def printTable(t:Table):
     for column in t.column_array:
         print(column.name, end='\t')
         pass
+    print('\n')
+    l = len(t.column_array[0].row)
+    r = 0
+    while r != l -1:
+        r+=1
+        for column in t.column_array:
+            print(column.row[r], end='\t')
+            pass
+        print('\n')
 
     print("\n\n")
     pass

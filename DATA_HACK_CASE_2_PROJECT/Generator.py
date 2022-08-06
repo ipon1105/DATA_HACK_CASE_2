@@ -126,6 +126,7 @@ class Generator:
                                 pass
                             pass
 
+        '''
         for table in self.table_arr:
             for column in table.column_array:
                 print(column.name)
@@ -134,6 +135,7 @@ class Generator:
                 print("\t", column.rules.Range if column.rules.Range != None else str("\tNone"))
                 print("\t", column.rules.Fixed if column.rules.Fixed != None else str("\tNone"))
                 print("\t", column.rules.StartYear if column.rules.StartYear != None else str("\tNone"))
+        '''
         pass
 
     # A function that generates an array of data into a table(s)
@@ -143,8 +145,10 @@ class Generator:
         if (False):
             pass
         else:
-            for i in self.conf.FIELD_COUNT:
-                print(i)
+            k = self.conf.FIELD_COUNT
+            m = 0
+            while m != k:
+                m+=1
                 for table in self.table_arr:
                     for column in table.column_array:
                         #TODO: Для каждого столбца по необходимости предусмотреть генерацию по маске, как в функции number_holder
@@ -205,6 +209,8 @@ class Generator:
                                 pass
                         pass
                     pass
+                pass
+            pass
         pass
 
     # Function that generic a random text
