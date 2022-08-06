@@ -1,5 +1,4 @@
 import Table
-import random
 from Config import Config
 from faker import Faker
 
@@ -35,113 +34,26 @@ class Generator:
         self.fake = Faker(self.conf.LOCALIZATION)
         Faker.seed(seed=self.conf.RANDOM_SEED)
 
-        count_tmp: int
         # Transfer data from JSON to table_arr
-        for key, value in self.data["TABLES"].:
-            if (key == 'COUNT'):
-                count_tmp = value
-            if (key.find(0, len(key)))
-        megaTable = self.data("TABLES")
-        for tableConf in megaTable:
-            for tableIn in self.table_arr:
-                if (tableConf == tableIn.name):
-                    for columnConf in megaTable[tableConf]:
-                        for columnIn in tableIn.column_array:
-                            if (columnConf == columnIn.name):
-                                match columnIn.type:
-                                    case Config.CONFIG_TYPE_INT:
-                                        columnIn.rules = Table.ColumnRules(None,None,None,None,None)
+        for table_arr_a in self.data["TABLES"]:
+            for table_arr_b in self.table_arr:
+                if (table_arr_a == table_arr_b.name):
+                    for key_column, value_column in self.data["TABLES"][table_arr_a].items():
+                        if (key_column == "COUNT"):
+                            table_arr_b.count = value_column
+                        for column_arr_b in self.table_arr.column_array:
+                            if (key_column == column_arr_b.name):
 
-                                        try:
-                                            columnIn.rules.Mask         = megaTable[tableConf][columnConf]["NUMBER_MASK"]
-                                        except KeyError:
-                                            pass
-                                        try:
-                                            columnIn.rules.Templates    = megaTable[tableConf][columnConf]["NUMBER_TEMPLATES"]
-                                        except KeyError:
-                                            pass
-                                        try:
-                                            columnIn.rules.Range        = megaTable[tableConf][columnConf]["NUMBER_RANGE"]
-                                        except KeyError:
-                                            pass
-                                        pass
-                                    case Config.CONFIG_TYPE_FLOAT:
-                                        columnIn.rules = Table.ColumnRules(None,None,None,None,None)
+                                for key, value in self.data["TABLES"][table_arr_a][key_column]:
+                                    Config.dating(key, value, column_arr_b)
 
-                                        print(list(megaTable[tableConf][columnConf]))
-                                        try:
-                                            columnIn.rules.Mask         = megaTable[tableConf][columnConf]["NUMBER_MASK"]
-                                        except KeyError:
-                                            pass
-                                        try:
-                                            columnIn.rules.Templates    = megaTable[tableConf][columnConf]["NUMBER_TEMPLATES"]
-                                        except KeyError: pass
-                                        try:
-                                            columnIn.rules.Range        = megaTable[tableConf][columnConf]["NUMBER_RANGE"]
-                                        except KeyError: pass
-
-                                        pass
-                                    case Config.CONFIG_TYPE_STR:
-                                        columnIn.rules = Table.ColumnRules(None, None, None, None, None)
-
-                                        s = int(5)
-
-                                        try:
-                                            columnIn.rules.Mask = megaTable[tableConf][columnConf]["STRING_MASK"]
-                                        except KeyError: pass
-                                        try:
-                                            columnIn.rules.Fixed = megaTable[tableConf][columnConf]["STRING_FIXED"]
-                                        except KeyError: pass
-                                        try:
-                                            columnIn.rules.Templates = megaTable[tableConf][columnConf]["STRING_TEMPLATES"]
-                                        except KeyError: pass
-                                        try:
-                                            s = megaTable[tableConf][columnConf]["STRING_MIN"]
-                                        except KeyError: pass
-                                        try:
-                                            columnIn.rules.Range = [s, megaTable[tableConf][columnConf]["STRING_MAX"]]
-                                        except KeyError: pass
-                                        pass
-                                    case Config.CONFIG_TYPE_TIMESTAMP:
-                                        columnIn.rules = Table.ColumnRules(None, None, None, None, None)
-
-                                        s = int(5)
-                                        try:
-                                            s = megaTable[tableConf][columnConf]["TIMESTAMP_MIN"]
-                                        except KeyError: pass
-                                        try:
-                                            columnIn.rules.Range = [s, megaTable[tableConf][columnConf]["TIMESTAMP_MAX"]]
-                                        except KeyError: pass
-
-                                        pass
-                                    case Config.CONFIG_TYPE_DATE:
-                                        columnIn.rules = Table.ColumnRules(None, None, None, None, None)
-
-                                        s = int(5)
-                                        try:
-                                            columnIn.rules.Mask = megaTable[tableConf][columnConf]["START_YEAR"]
-                                        except KeyError: pass
-                                        try:
-                                            s = megaTable[tableConf][columnConf]["MIN_YEAR_AGE"]
-                                        except KeyError: pass
-                                        try:
-                                            columnIn.rules.Range = [s, megaTable[tableConf][columnConf]["MAX_YEAR_AGE"]]
-                                        except KeyError: pass
-                                        pass
                                 pass
-                            pass
 
-        '''
-        for table in self.table_arr:
-            for column in table.column_array:
-                print(column.name)
-                print("\t", column.rules.Mask if column.rules.Mask != None else str("\tNone"))
-                print("\t", column.rules.Templates if column.rules.Templates != None else str("\tNone"))
-                print("\t", column.rules.Range if column.rules.Range != None else str("\tNone"))
-                print("\t", column.rules.Fixed if column.rules.Fixed != None else str("\tNone"))
-                print("\t", column.rules.StartYear if column.rules.StartYear != None else str("\tNone"))
-        '''
-        pass
+
+
+
+    pass
+
 
     # A function that generates an array of data into a table(s)
     def run(self):

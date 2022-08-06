@@ -64,6 +64,32 @@ class Config:
     def getConf(self, confName):
         return self.conf[confName]
 
+    def dating(self, key, value, column):
+        if (key == 'NUMBER_MASK' or
+            key == 'STRING_MASK' or
+            key == 'DATE_MASK'):
+            column.rules.Mask = value
+        if (key == 'NUMBER_TEMPLATES' or
+            key == 'STRING_TEMPLATES' or
+            key == 'DATE_TEMPLATES'):
+            column.rules.Templates = value
+        if (key == 'NUMBER_RANGE' or
+            key == 'STRING_RANGE' or
+            key == 'DATE_RANGE'):
+            column.rules.Range = value
+        if (key == 'NUMBER_REPEAT' or
+            key == 'STRING_FIXING' or
+            key == 'DATE_REPEAT'):
+            column.rules.Flag = value
+        if (key == 'NUMBER_MIN' or
+            key == 'STRING_MIN' or
+            key == 'DATE_MIN'):
+            column.rules.Min = value
+        if (key == 'NUMBER_MAX' or
+            key == 'STRING_MAX' or
+            key == 'DATE_MAX'):
+            column.rules.Max = value
+        pass
     # Random seed
     RANDOM_SEED = 100
 
