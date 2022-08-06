@@ -199,8 +199,8 @@ class Generator:
             return self.fake.random.choice(column.rules.Templates)
             pass
 
-        max = int(column.rules.Range[1]) if column.rules.Range != None else int(self.conf.getConf(self.conf, "STRING_MAX"))
-        min = int(column.rules.Range[0]) if column.rules.Range != None else int(self.conf.getConf(self.conf, "STRING_MIN"))
+        max = int(column.rules.Range[1]) if column.rules.Range != None else int(column.rules.Max)
+        min = int(column.rules.Range[0]) if column.rules.Range != None else int(column.rules.Min)
         self.fake.pystr(min_chars=min, max_chars=max)
         return self.fake.text()
         pass
@@ -209,8 +209,6 @@ class Generator:
     def number_holder(self, column: Table.Column):
 
         if (column.rules.Mask != None):
-            #TODO: Добавить возможность генерировать данные из Templates и Range
-            #TODO: Добавить обработку знака *
             b = str(column.rules.Mask)
             while b.count('#') != 0:
                 b = b.replace("#", str(self.fake.random.randint(0,9)), 1)
@@ -225,10 +223,7 @@ class Generator:
                 t = self.fake.random.choice(t)
             return self.fake.random.randint(t[0], t[1])
         else:
-            t = self.conf.getConf(self.conf,"NUMBER_RANGE")
-            while type(t[0]) != int:
-                t = self.fake.random.choice(t)
-            return self.fake.random.randint(t[0], t[1])
+            return self.fake.random.randint(column.rules.Min, column.rules.Min)
 
         return 0
         pass
