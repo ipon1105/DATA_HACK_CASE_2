@@ -18,12 +18,12 @@ class Config:
 
     # Base Constucter
     def __init__(self):
+        # self.conf - information from configuration
         self.conf = None
 
     # Read JSON file
     def read(self):
         with open("data.json") as d:
-            #self.conf - information from configuration
             self.conf = json.load(d)
         pass
 
@@ -32,7 +32,7 @@ class Config:
 
 
     # Count of rows to generator
-    # FIELD_COUNT = int(100)
+    FIELD_COUNT = int(100)
 
     # RANDOM_SEED to randomize the massive of data
     # RANDOM_SEED = 100

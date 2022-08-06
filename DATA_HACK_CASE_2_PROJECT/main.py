@@ -11,11 +11,7 @@ def printTable(t:Table):
         print(column.name, end='\t')
         pass
 
-    for _a in 2:
-        for column in t.column_array:
-            print(column.row._a, end='\t')
-            pass
-
+    print("\n\n")
     pass
 
 if __name__ == '__main__':

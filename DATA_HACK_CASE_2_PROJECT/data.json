@@ -8,7 +8,7 @@
                 "STRING_TEMPLATES":["MOSCOW","CHEBOKSARY","GROZNII"]
             },
             "Type": {
-                "STRING_TEMPLATES":[["A","F"],"Z","S","SS"]
+                "STRING_TEMPLATES":["A","F","Z","S","SS"]
             }
         },
         "PC": {
