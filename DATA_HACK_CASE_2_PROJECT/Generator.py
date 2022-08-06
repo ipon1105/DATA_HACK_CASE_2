@@ -23,12 +23,26 @@ class Generator:
     data = None
 
     # Constructor that accepts an array of tables to fill in
+
     def __init__(self, table_arr):
         # Start load data from JSON
         self.data = self.conf.read(self.conf)
 
         # The table_arr field describes the array of Table classes
         self.table_arr = table_arr
+
+    def __init__(self, table_arr, LOCALIZATION=None):
+        self.conf.read(self.conf)
+
+        # The table_arr field describes the array of Table classes
+        self.table_arr = table_arr
+        for table in self.table_arr:
+            for column in table.column_array:
+                column.row = list()
+        self.fake = Faker(Config.getConf(self.conf, LOCALIZATION))
+        Faker.seed(seed=self.conf.getConf(self.conf, "RANDOM_SEED"))
+
+        megaTable = self.conf.getConf(self.conf, "TABLES")
 
         # Faker init
         self.fake = Faker(self.conf.LOCALIZATION)
