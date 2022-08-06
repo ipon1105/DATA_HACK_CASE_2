@@ -165,10 +165,10 @@ class Generator:
                 maxRage = self.fake.random.randint(t[0], t[1])
 
 
-            max = int(maxRage[1]) if maxRage != None else column.rules.Max
-            if size >= max:
-                return mask
-            min = maxRage[0] if maxRage != None else column.rules.Min
+            max = column.rules.Max
+            min = column.rules.Min
+            return mask
+
 
             prefix: str
             postfix: str
