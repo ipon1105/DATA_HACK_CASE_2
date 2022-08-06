@@ -36,25 +36,5 @@
         },
         "Printer": {
         }
-    },
-
-    "RANDOM_SEED": 911,
-    "FIELD_COUNT": 100,
-    "LOCALIZATION": "ru_RU",
-    "MIN_YEAR_AGE": "-30y",
-    "MAX_YEAR_AGE": "-20y",
-    "START_YEAR": "-30y",
-    "JOIN_INDEX_ARR": [[1,2],[0,3], [4,5]],
-
-    "PHONE": "8 (023) 739-1431",
-    "NUMBER_RANGE": [[-50,150],[30,100]],
-    "STRING_FIXED": "TRUE",
-    "STRING_MIN": "30",
-    "STRING_MAX": "60",
-    "TIMESTAMP_MIN":"20020511235859",
-    "TIMESTAMP_MAX":"20220511235859",
-    "NUMBER_TEMPLATES":[960, 1080, 1280, 1920],
-    "STRING_TEMPLATES":["CODEX","RUNNER","GUN"],
-    "STRING_MASK": "MY_####",
-    "NUMBER_MASK": "12####34"
+    }
 }
