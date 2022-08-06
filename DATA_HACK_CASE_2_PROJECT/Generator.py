@@ -1,4 +1,5 @@
 import Table
+import random
 from Config import Config
 from faker import Faker
 
@@ -31,9 +32,10 @@ class Generator:
             for column in table.column_array:
                 column.row = list()
         self.fake = Faker(Config.getConf(self.conf, "LOCALIZATION"))
+        Faker.seed(seed=self.conf.getConf(self.conf, "RANDOM_SEED"))
 
         megaTable = self.conf.getConf(self.conf, "TABLES")
-        #print(megaTable)
+        
 
         for tableConf in megaTable:
             for tableIn in self.table_arr:
@@ -132,21 +134,6 @@ class Generator:
                 print("\t", column.rules.Range if column.rules.Range != None else str("\tNone"))
                 print("\t", column.rules.Fixed if column.rules.Fixed != None else str("\tNone"))
                 print("\t", column.rules.StartYear if column.rules.StartYear != None else str("\tNone"))
-
-
-
-
-        '''
-            
-                if (tableConf == tableIn.name):
-                    for columnConf in megaTable:
-                        for columnIn in self.table_arr:
-
-
-                for c_n in self.conf['TABLES'][t_n]:
-                    if (column.name == c_n):
-                        match column.type:
-        '''
         pass
 
     # A function that generates an array of data into a table(s)
@@ -158,56 +145,80 @@ class Generator:
         else:
             for table in self.table_arr:
                 for column in table.column_array:
-                    self.define(table.name, column)
+                    #TODO: Для каждого столбца по необходимости предусмотреть генерацию по маске, как в функции number_holder
                     match column.name.upper():
                         case "FIO":
                             column.row.append(self.fake.name())
                             print(column.row)
+                            pass
                         case "CITY":
                             column.row.append(self.fake.city())
                             print(column.row)
+                            pass
                         case "JOB":
                             column.row.append(self.fake.job())
                             print(column.row)
+                            pass
                         case "EMAIL":
                             column.row.append(self.fake.email())
                             print(column.row)
+                            pass
                         case "PHONE_NUMBER":
                             column.row.append(self.fake.phone_number())
                             print(column.row)
+                            pass
                         case "USER_NAME":
                             column.row.append(self.fake.user_name())
                             print(column.row)
-
+                            pass
                         case "IP":
                             column.row.append(self.fake.ipv4())
                             print(column.row)
-
+                            pass
                         case "ID":
                             column.row.append(self.fake.id())
                             print(column.row)
-
-                        case _:
-                            print("thing is not 1, 2 or 3")
-                    pass
-
-                    '''
-                    match column.type.upper():
+                            pass
                         case "BIRTHDAY":
-                            column.row.append(self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
+                            column.row.append(
+                            self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
                             print(column.row)
+                            pass
                         case "VISIT":
                             column.row.append(self.fake.time(pattern="%H:%M:%S"))
                             print(column.row)
+                            pass
                         case _:
-                            print("thing is not 1, 2 or 3")
+                            match column.type:
+                                case Config.CONFIG_TYPE_INT:
+                                    column.row.append(self.number_holder(column))
+                                    pass
+
+                            pass
                     pass
-                    '''
                 pass
-
         pass
 
-    def define(self, table_name: str, col: Table.Column):
-        self.conf.get(self.conf, [table_name, col])
+
+    # Function that generic a random number
+    def number_holder(self, column: Table.Column):
+
+        if (column.rules.Mask != None):
+            b = str(column.rules.Mask)
+            while b.count('#') != 0:
+                b = b.replace("#", str(self.fake.random.randint(0,9)), 1)
+            return int(b)
+
+        if (column.rules.Templates != None):
+            return self.fake.random.choice(column.rules.Templates)
+
+        if (column.rules.Range != None):
+            t = column.rules.Range
+            while type(t[0]) != int:
+                t = self.fake.random.choice(t)
+            return self.fake.random.randint(t[0], t[1])
+
+        # TODO: Необходимо доделать выбор по умолчанию, если он не настроен пользователем
+
+        return -1
         pass
-    pass

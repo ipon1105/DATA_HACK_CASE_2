@@ -30,9 +30,12 @@ class Config:
     def getConf(self, confName):
         return self.conf[confName]
 
-    
+
     # Count of rows to generator
     # FIELD_COUNT = int(100)
+
+    # RANDOM_SEED to randomize the massive of data
+    # RANDOM_SEED = 100
 
     # Language to localization the massive of data
     # LOCALIZATION = str("ru_RU")

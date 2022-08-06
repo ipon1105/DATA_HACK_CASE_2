@@ -4,6 +4,20 @@ from Generator import Generator
 from Table import Table, Column
 from Config import Config
 
+def printTable(t:Table):
+    print(t.name + ":" + str(t.primary_index))
+
+    for column in t.column_array:
+        print(column.name, end='\t')
+        pass
+
+    for _a in 2:
+        for column in t.column_array:
+            print(column.row._a, end='\t')
+            pass
+
+    pass
+
 if __name__ == '__main__':
     # t1.
     Product = Table("Product", 0, [
@@ -45,3 +59,7 @@ if __name__ == '__main__':
 
     gen = Generator([Product, PC, Notebook, Printer])
     gen.run()
+    printTable(Product)
+    printTable(PC)
+    printTable(Notebook)
+    printTable(Printer)

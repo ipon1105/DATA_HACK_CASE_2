@@ -38,6 +38,7 @@
         }
     },
 
+    "RANDOM_SEED": 911,
     "FIELD_COUNT": 100,
     "LOCALIZATION": "ru_RU",
     "MIN_YEAR_AGE": "-30y",
