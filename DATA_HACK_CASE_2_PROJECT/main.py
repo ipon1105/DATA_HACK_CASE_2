@@ -3,13 +3,15 @@ from Table import Table, Column
 from Config import Config
 
 def printTable(t:Table):
-    print(t.name + ":" + str(t.primary_index))
+    print(t.name)
 
     for column in t.column_array:
         print(column.name, end='\t')
         pass
     print('\n')
-    l = len(t.column_array[0].row)
+
+
+    l = Config.GENERAL_COUNT
     r = 0
     while r != l -1:
         r+=1

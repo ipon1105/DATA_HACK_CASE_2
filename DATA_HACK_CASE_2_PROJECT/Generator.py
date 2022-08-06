@@ -1,6 +1,6 @@
 import Table
-from Config import Config
 from faker import Faker
+from Config import Config
 
 '''
     This python script describes a Generator
@@ -29,6 +29,13 @@ class Generator:
     def __init__(self, table_arr, LOCALIZATION=None):
         self.data = self.conf.read(self.conf)
 
+
+
+        for t in table_arr:
+            for c in t.column_array:
+                c.row = list()
+
+
         # The table_arr field describes the array of Table classes
         self.table_arr = table_arr
 
@@ -46,8 +53,8 @@ class Generator:
                         else:
                             for column_arr_b in table_arr_b.column_array:
                                 if (key_column == column_arr_b.name):
-                                    for key, value in self.data["TABLES"][table_arr_a][key_column]:
-                                        Config.dating(key, value, column_arr_b)
+                                    for key, value in self.data["TABLES"][table_arr_a][key_column].items():
+                                        Config.dating(self.conf, key, value, column_arr_b)
 
                                 pass
 
@@ -60,13 +67,18 @@ class Generator:
         if (False):
             pass
         else:
-            k = self.conf.FIELD_COUNT
+            k = Config.GENERAL_COUNT
             m = 0
             while m != k:
                 m += 1
                 for table in self.table_arr:
                     for column in table.column_array:
+
                         # TODO: Для каждого столбца по необходимости предусмотреть генерацию по маске, как в функции number_holder
+
+
+                        #TODO: Для каждого столбца по необходимости предусмотреть генерацию по маске, как в функции number_holder
+                        self.rabd_date(column)
 
                         pass
                     pass
@@ -146,15 +158,27 @@ class Generator:
                     c_size += 1
                 elif c_size != 0:
                     k = ''
-                    for i in c_size: (k + '#')
+                    i = 0
+                    while i !=c_size:
+                        i+=1
+                        k + '#'
                     self.fake.pystr(min_chars=None, max_chars=c_size)
                     mask = mask.replace(k, self.fake.text(), 1)
 
             size = len(mask)
-            max = column.rules.Range[1] if column.rules.Range != None else self.conf.getConf(self.conf, "STRING_MAX")
-            if size >= max:
-                return mask
-            min = column.rules.Range[0] if column.rules.Range != None else self.conf.getConf(self.conf, "STRING_MIN")
+
+
+            if (column.rules.Range != None):
+                t = column.rules.Range
+                while type(t[0]) != int:
+                    t = self.fake.random.choice(t)
+                maxRage = self.fake.random.randint(t[0], t[1])
+
+
+            max = column.rules.Max
+            min = column.rules.Min
+            return mask
+
 
             prefix: str
             postfix: str
@@ -184,10 +208,15 @@ class Generator:
             return self.fake.random.choice(column.rules.Templates)
             pass
 
+
         max = int(column.rules.Range[1]) if column.rules.Range != None else int(
             self.conf.getConf(self.conf, "STRING_MAX"))
         min = int(column.rules.Range[0]) if column.rules.Range != None else int(
             self.conf.getConf(self.conf, "STRING_MIN"))
+
+        max = int(column.rules.Range[1]) if column.rules.Range != None else int(column.rules.Max)
+        min = int(column.rules.Range[0]) if column.rules.Range != None else int(column.rules.Min)
+
         self.fake.pystr(min_chars=min, max_chars=max)
         return self.fake.text()
         pass
@@ -196,8 +225,10 @@ class Generator:
     def number_holder(self, column: Table.Column):
 
         if (column.rules.Mask != None):
+
             # TODO: Добавить возможность генерировать данные из Templates и Range
             # TODO: Добавить обработку знака *
+
             b = str(column.rules.Mask)
             while b.count('#') != 0:
                 b = b.replace("#", str(self.fake.random.randint(0, 9)), 1)
@@ -212,10 +243,14 @@ class Generator:
                 t = self.fake.random.choice(t)
             return self.fake.random.randint(t[0], t[1])
         else:
+
             t = self.conf.getConf(self.conf, "NUMBER_RANGE")
             while type(t[0]) != int:
                 t = self.fake.random.choice(t)
             return self.fake.random.randint(t[0], t[1])
+
+            return self.fake.random.randint(column.rules.Min, column.rules.Min)
+
 
         return 0
         pass
