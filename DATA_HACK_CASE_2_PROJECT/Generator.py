@@ -1,21 +1,11 @@
 import Table
-from faker import Faker
+from faker import Faker, factory
 from Config import Config
 
 '''
     This python script describes a Generator
     which generate the massive data at table(s)
 '''
-
-'''
-        for i in self.table_arr:
-            print("Table name: " + i.name + ";")
-            print("Primary index: " + str(i.primary_index) + ";")
-            print("Columns:")
-            for j in i.column_array:
-                print(j.name + "-" + str(j.type))
-'''
-
 
 class Generator:
     "Class for generating data to the table(s)"
@@ -47,13 +37,17 @@ class Generator:
             for column_arr_b in table_arr_b.column_array:
                 self.conf.to_def(self.conf, column_arr_b)
 
+        temp_count =Config.GENERAL_COUNT
         # Transfer data from JSON to table_arr
         for table_arr_a in self.data["TABLES"]:
             for table_arr_b in self.table_arr:
                 if (table_arr_a == table_arr_b.name):
                     for column_arr_a in self.data["TABLES"][table_arr_a]:
                         for column_arr_b in table_arr_b.column_array:
-                            if (column_arr_a == column_arr_b.name):
+                            if (column_arr_a == "COUNT"):
+                                temp_count = self.data["TABLES"][table_arr_a][column_arr_a]
+                            elif (column_arr_a == column_arr_b.name):
+                                
                                 for key, value in self.data["TABLES"][table_arr_a][column_arr_b.name].items():
                                     if (key == 'NUMBER_MASK' or
                                             key == 'STRING_MASK' or
@@ -95,11 +89,6 @@ class Generator:
                 for table in self.table_arr:
                     for column in table.column_array:
                         self.rand_date(column)
-
-
-
-
-
         pass
 
     def rand_date(self, column: Table.Column):
@@ -137,7 +126,7 @@ class Generator:
                     print(column.row)
                     pass
                 case "FAKER_BIRTHDAY":
-                    column.row.append( self.fake.date_between(start_date=Config.DATE_MIN, end_date=Config.DATE_MAX))
+                    column.row.append( self.fake.date_between(start_date="-50y", end_date="-30y"))
                     print(column.row)
                     pass
                 case "FAKER_VISIT":
@@ -154,6 +143,12 @@ class Generator:
                             pass
                         case Config.CONFIG_TYPE_STR:
                             column.row.append(self.text_holder(column))
+                            pass
+                        case Config.CONFIG_TYPE_DATE:
+                            #TODO: Сделать генерацию даты
+                            pass
+                        case Config.CONFIG_TYPE_TIMESTAMP:
+                            #TODO: Сделать генерацию даты
                             pass
                     pass
                     pass
@@ -189,14 +184,10 @@ class Generator:
                 wordlist = self.fake.random.choice(wordlist)
             return self.fake.sentence(ext_word_list=wordlist)
 
+        #TODO: Сделать генерацию по фиксированому размеру
+
         self.fake.pystr(min_chars=column.rules.Min, max_chars=column.rules.Max)
         return self.fake.text()
-        pass
-
-    def figure_count_in_number(self, k):
-        return 1 + self.count_in_number(divmod(k, 10)) if k != 0 else 0
-
-    def sharp_count_in_str(self, string):
         pass
 
     def float_holder(self, column: Table.Column):
@@ -225,12 +216,6 @@ class Generator:
             while b.count('#') != 0:
                 b = b.replace("#", str(self.fake.random.randint(0, 9)), 1)
             return int(b)
-
-        '''
-        if (column.rules.Templates != None):
-             for t in column.rules.Templates:
-                  figure_count_in_number(t)
-             pass'''
 
         if (column.rules.Templates != None):
             return self.fake.random.choice(column.rules.Templates)

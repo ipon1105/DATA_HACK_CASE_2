@@ -6,7 +6,6 @@ import Table
     This python script describes a Configuration information
 '''
 
-
 class Config:
     # The default types of data
     CONFIG_TYPE_0 = CONFIG_TYPE_INT = int(0)  # int
@@ -20,7 +19,7 @@ class Config:
         self.conf = None
 
     def to_def(self, column: Table.Column):
-        if  column.type == self.CONFIG_TYPE_INT or column.type == self.CONFIG_TYPE_FLOAT or column.type == self.CONFIG_TYPE_DATE or column.type == self.CONFIG_TYPE_TIMESTAMP:
+        if  column.type == self.CONFIG_TYPE_INT or column.type == self.CONFIG_TYPE_FLOAT:
             column.rules.Min = self.NUMBER_MIN
             column.rules.Max = self.NUMBER_MAX
             column.rules.Flag = self.NUMBER_REPEAT

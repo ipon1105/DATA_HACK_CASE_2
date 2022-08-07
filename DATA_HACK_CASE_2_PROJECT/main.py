@@ -1,3 +1,5 @@
+from faker import Faker
+
 from Config import Config
 from Generator import Generator
 from Table import Table, Column
@@ -25,13 +27,14 @@ def printTable(t: Table):
 
 
 if __name__ == '__main__':
-    # TODO: Должен быть отдельный файл где описывается таблицы и значения по умолчанию
-
     # TODO: ВЫВОД SPARKET
 
     # TODO: Для каждой таблицы своё количество строк
-
-    # TODO: DOCKER = YANDEX + GOOGLE оф сайты
+    '''
+    fake = Faker()
+    print(fake.date_between(start_date=111122, end_date="-3y"))
+    exit(0)
+    '''
 
     Product = Table("Product", [
         Column("Number", Config.CONFIG_TYPE_INT),
@@ -67,7 +70,7 @@ if __name__ == '__main__':
         Column("Number", Config.CONFIG_TYPE_INT),
         Column("Color", Config.CONFIG_TYPE_INT),
         Column("Type", Config.CONFIG_TYPE_STR),
-        Column("Price", Config.CONFIG_TYPE_INT)
+        Column("Price", Config.CONFIG_TYPE_DATE)
     ])
 
     gen = Generator([Product, PC, Notebook, Printer])
