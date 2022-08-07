@@ -70,7 +70,6 @@ if __name__ == '__main__':
         Column("Number", Config.CONFIG_TYPE_INT),
         Column("Color", Config.CONFIG_TYPE_INT),
         Column("Type", Config.CONFIG_TYPE_STR),
-        Column("Price", Config.CONFIG_TYPE_DATE)
     ])
 
     gen = Generator([Product, PC, Notebook, Printer])
