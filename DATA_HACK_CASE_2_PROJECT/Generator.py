@@ -103,63 +103,60 @@ class Generator:
         pass
 
     def rand_date(self, column: Table.Column):
-        match column.type:
-            case Config.CONFIG_TYPE_INT:
-                column.row.append(self.number_holder(column))
-                pass
-            case Config.CONFIG_TYPE_FLOAT:
-                # TODO: Заменить вызов функции number_holder на соответсвующий float_holder или добавить дробную часть
-                column.row.append(self.number_holder(column))
-                pass
-            case Config.CONFIG_TYPE_STR:
-                column.row.append(self.text_holder(column))
-                pass
-        pass
-        '''
-        match column.name.upper():
-            case "FIO":
-                column.row.append(self.fake.name())
-                print(column.row)
-                pass
-            case "CITY":
-                column.row.append(self.fake.city())
-                print(column.row)
-                pass
-            case "JOB":
-                column.row.append(self.fake.job())
-                print(column.row)
-                pass
-            case "EMAIL":
-                column.row.append(self.fake.email())
-                print(column.row)
-                pass
-            case "PHONE_NUMBER":
-                column.row.append(self.fake.phone_number())
-                print(column.row)
-                pass
-            case "USER_NAME":
-                column.row.append(self.fake.user_name())
-                print(column.row)
-                pass
-            case "IP":
-                column.row.append(self.fake.ipv4())
-                print(column.row)
-                pass
-            case "ID":
-                column.row.append(self.fake.id())
-                print(column.row)
-                pass
-            case "BIRTHDAY":
-                column.row.append( self.fake.date_between(start_date=Config.DATE_MIN, end_date=Config.DATE_MAX))
-                print(column.row)
-                pass
-            case "VISIT":
-                column.row.append(self.fake.time(pattern="%H:%M:%S"))
-                print(column.row)
-                pass
-            case _:
-                '''
-
+            match column.name.upper():
+                case "FAKER_FIO":
+                    column.row.append(self.fake.name())
+                    print(column.row)
+                    pass
+                case "FAKER_CITY":
+                    column.row.append(self.fake.city())
+                    print(column.row)
+                    pass
+                case "FAKER_JOB":
+                    column.row.append(self.fake.job())
+                    print(column.row)
+                    pass
+                case "FAKER_EMAIL":
+                    column.row.append(self.fake.email())
+                    print(column.row)
+                    pass
+                case "FAKER_PHONE_NUMBER":
+                    column.row.append(self.fake.phone_number())
+                    print(column.row)
+                    pass
+                case "FAKER_USER_NAME":
+                    column.row.append(self.fake.user_name())
+                    print(column.row)
+                    pass
+                case "FAKER_IP":
+                    column.row.append(self.fake.ipv4())
+                    print(column.row)
+                    pass
+                case "FAKER_ID":
+                    column.row.append(self.fake.id())
+                    print(column.row)
+                    pass
+                case "FAKER_BIRTHDAY":
+                    column.row.append( self.fake.date_between(start_date=Config.DATE_MIN, end_date=Config.DATE_MAX))
+                    print(column.row)
+                    pass
+                case "FAKER_VISIT":
+                    column.row.append(self.fake.time(pattern="%H:%M:%S"))
+                    print(column.row)
+                    pass
+                case _:
+                    match column.type:
+                        case Config.CONFIG_TYPE_INT:
+                            column.row.append(self.number_holder(column))
+                            pass
+                        case Config.CONFIG_TYPE_FLOAT:
+                            column.row.append(self.float_holder(column))
+                            pass
+                        case Config.CONFIG_TYPE_STR:
+                            column.row.append(self.text_holder(column))
+                            pass
+                    pass
+                    pass
     pass
 
     # Function that generic a random text
@@ -200,6 +197,25 @@ class Generator:
         return 1 + self.count_in_number(divmod(k, 10)) if k != 0 else 0
 
     def sharp_count_in_str(self, string):
+        pass
+
+    def float_holder(self, column: Table.Column):
+        if (column.rules.Mask != None):
+            b = str(column.rules.Mask)
+            while b.count('#') != 0:
+                b = b.replace("#", str(self.fake.random.randint(0, 9)), 1)
+            return float(b)
+
+        if (column.rules.Templates != None):
+            return float(self.fake.random.choice(column.rules.Templates))
+
+        if (column.rules.Range != None):
+            t = column.rules.Range
+            while type(t[0]) != float:
+                t = self.fake.random.choice(t)
+            return self.fake.random.uniform(t[0], t[1])
+        else:
+            return self.fake.random.uniform(column.rules.Min, column.rules.Max)
         pass
 
     # Function that generic a random number
