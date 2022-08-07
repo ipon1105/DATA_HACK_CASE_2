@@ -168,7 +168,6 @@ class Generator:
             mask = column.rules.Mask
 
             # Эта часть отвеает за то, что бы избавиться от всех #
-            # TODO: Добавить возможность заменять несколько решеток на элемент column.rules.Templates
             c_size = 0
             for c in mask:
                 if c == '#':
@@ -181,67 +180,41 @@ class Generator:
                         k + '#'
                     self.fake.pystr(min_chars=None, max_chars=c_size)
                     mask = mask.replace(k, self.fake.text(), 1)
-
-            size = len(mask)
-
-
-            if (column.rules.Range != None):
-                t = column.rules.Range
-                while type(t[0]) != int:
-                    t = self.fake.random.choice(t)
-                maxRage = self.fake.random.randint(t[0], t[1])
-
-
-            max = column.rules.Max
-            min = column.rules.Min
             return mask
-
-
-            prefix: str
-            postfix: str
-
-            if mask[0] == "*" and size < max:
-                self.fake.pystr(min_chars=(min - size) if min >= size else 0, max_chars=max - size)
-                prefix = self.fake.text()
-                mask = mask.replace('*', prefix, 1)
-                pass
-
-            while mask.count('*') != 0:
-                size = len(mask)
-                self.fake.pystr(min_chars=(min - size) if min >= size else 0, max_chars=max - size)
-                sufffix = self.fake.text()
-                mask = mask.replace('*', sufffix, 1)
-                pass
-
-            return mask
-
-
 
         if column.rules.Templates:
             return self.fake.random.choice(column.rules.Templates)
             pass
 
-        '''
-        max = int(column.rules.Range[1]) if column.rules.Range != None else int(
-            self.conf.getConf(self.conf, "STRING_MAX"))
-        min = int(column.rules.Range[0]) if column.rules.Range != None else int(
-            self.conf.getConf(self.conf, "STRING_MIN"))
+        if (column.rules.Range != None):
+            wordlist = column.rules.Range
+            while type(wordlist[0]) != str:
+                wordlist = self.fake.random.choice(wordlist)
+            return self.fake.sentence(ext_word_list=wordlist)
 
-        max = int(column.rules.Range[1]) if column.rules.Range != None else int(column.rules.Max)
-        min = int(column.rules.Range[0]) if column.rules.Range != None else int(column.rules.Min)
-'''
         self.fake.pystr(min_chars=column.rules.Min, max_chars=column.rules.Max)
         return self.fake.text()
         pass
 
+    def figure_count_in_number(self, k):
+        return 1 + self.count_in_number(divmod(k, 10)) if k != 0 else 0
+
+    def sharp_count_in_str(self, string):
+        pass
+
     # Function that generic a random number
     def number_holder(self, column: Table.Column):
-
         if (column.rules.Mask != None):
             b = str(column.rules.Mask)
             while b.count('#') != 0:
                 b = b.replace("#", str(self.fake.random.randint(0, 9)), 1)
             return int(b)
+
+        '''
+        if (column.rules.Templates != None):
+             for t in column.rules.Templates:
+                  figure_count_in_number(t)
+             pass'''
 
         if (column.rules.Templates != None):
             return self.fake.random.choice(column.rules.Templates)
