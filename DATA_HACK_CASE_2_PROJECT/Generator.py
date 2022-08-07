@@ -24,17 +24,17 @@ class Generator:
     conf = Config
     data = None
 
-    # Constructor that accepts an array of tables to fill in
+    def dating(self, key, value, column: Table.Column):
 
+        pass
+
+    # Constructor that accepts an array of tables to fill in
     def __init__(self, table_arr, LOCALIZATION=None):
         self.data = self.conf.read(self.conf)
-
-
 
         for t in table_arr:
             for c in t.column_array:
                 c.row = list()
-
 
         # The table_arr field describes the array of Table classes
         self.table_arr = table_arr
@@ -47,18 +47,35 @@ class Generator:
         for table_arr_a in self.data["TABLES"]:
             for table_arr_b in self.table_arr:
                 if (table_arr_a == table_arr_b.name):
-                    for key_column, value_column in self.data["TABLES"][table_arr_a].items():
-                        if (key_column == "COUNT"):
-                            table_arr_b.count = value_column
-                        else:
-                            for column_arr_b in table_arr_b.column_array:
-                                if (key_column == column_arr_b.name):
-                                    for key, value in self.data["TABLES"][table_arr_a][key_column].items():
-                                        Config.dating(self.conf, key, value, column_arr_b)
+                    for column_arr_a in self.data["TABLES"][table_arr_a]:
+                        for column_arr_b in table_arr_b.column_array:
+                            if (column_arr_a == column_arr_b.name):
+                                for key, value in self.data["TABLES"][table_arr_a][column_arr_b.name].items():
+                                    if (key == 'NUMBER_MASK' or
+                                            key == 'STRING_MASK' or
+                                            key == 'DATE_MASK'):
+                                        column_arr_b.rules.Mask = value
+                                    if (key == 'NUMBER_TEMPLATES' or
+                                            key == 'STRING_TEMPLATES' or
+                                            key == 'DATE_TEMPLATES'):
+                                        column_arr_b.rules.Templates = value
+                                    if (key == 'NUMBER_RANGE' or
+                                            key == 'STRING_RANGE' or
+                                            key == 'DATE_RANGE'):
+                                        column_arr_b.rules.Range = value
+                                    if (key == 'NUMBER_REPEAT' or
+                                            key == 'STRING_FIXING' or
+                                            key == 'DATE_REPEAT'):
+                                        column_arr_b.rules.Flag = value
+                                    if (key == 'NUMBER_MIN' or
+                                            key == 'STRING_MIN' or
+                                            key == 'DATE_MIN'):
+                                        column_arr_b.rules.Min = value
+                                    if (key == 'NUMBER_MAX' or
+                                            key == 'STRING_MAX' or
+                                            key == 'DATE_MAX'):
+                                        column_arr_b.rules.Max = value
 
-                                pass
-
-    pass
 
     # A function that generates an array of data into a table(s)
     def run(self):
@@ -73,20 +90,28 @@ class Generator:
                 m += 1
                 for table in self.table_arr:
                     for column in table.column_array:
-
-                        # TODO: Для каждого столбца по необходимости предусмотреть генерацию по маске, как в функции number_holder
-
-
-                        #TODO: Для каждого столбца по необходимости предусмотреть генерацию по маске, как в функции number_holder
                         self.rand_date(column)
 
-                        pass
-                    pass
-                pass
-            pass
+
+
+
+
         pass
 
     def rand_date(self, column: Table.Column):
+        match column.type:
+            case Config.CONFIG_TYPE_INT:
+                column.row.append(self.number_holder(column))
+                pass
+            case Config.CONFIG_TYPE_FLOAT:
+                # TODO: Заменить вызов функции number_holder на соответсвующий float_holder или добавить дробную часть
+                column.row.append(self.number_holder(column))
+                pass
+            case Config.CONFIG_TYPE_STR:
+                column.row.append(self.text_holder(column))
+                pass
+        pass
+        '''
         match column.name.upper():
             case "FIO":
                 column.row.append(self.fake.name())
@@ -121,8 +146,7 @@ class Generator:
                 print(column.row)
                 pass
             case "BIRTHDAY":
-                column.row.append(
-                    self.fake.date_between(start_date=Config.MIN_YEAR_AGE, end_date=Config.MAX_YEAR_AGE))
+                column.row.append( self.fake.date_between(start_date=Config.DATE_MIN, end_date=Config.DATE_MAX))
                 print(column.row)
                 pass
             case "VISIT":
@@ -130,18 +154,7 @@ class Generator:
                 print(column.row)
                 pass
             case _:
-                match column.type:
-                    case Config.CONFIG_TYPE_INT:
-                        column.row.append(self.number_holder(column))
-                        pass
-                    case Config.CONFIG_TYPE_FLOAT:
-                        # TODO: Заменить вызов функции number_holder на соответсвующий float_holder или добавить дробную часть
-                        column.row.append(self.number_holder(column))
-                        pass
-                    case Config.CONFIG_TYPE_STR:
-                        column.row.append(self.text_holder(column))
-                        pass
-                pass
+                '''
 
     pass
 
@@ -198,11 +211,7 @@ class Generator:
 
             return mask
 
-        if column.rules.Fixed:
-            size = column.rules.Range[1] if column.rules.Range != None else self.conf.getConf(self.conf, "STRING_MAX")
-            self.fake.pystr(min_chars=0, max_chars=size)
-            return self.fake.text()
-            pass
+
 
         if column.rules.Templates:
             return self.fake.random.choice(column.rules.Templates)
@@ -225,10 +234,6 @@ class Generator:
     def number_holder(self, column: Table.Column):
 
         if (column.rules.Mask != None):
-
-            # TODO: Добавить возможность генерировать данные из Templates и Range
-            # TODO: Добавить обработку знака *
-
             b = str(column.rules.Mask)
             while b.count('#') != 0:
                 b = b.replace("#", str(self.fake.random.randint(0, 9)), 1)
@@ -243,14 +248,5 @@ class Generator:
                 t = self.fake.random.choice(t)
             return self.fake.random.randint(t[0], t[1])
         else:
-
-            t = self.conf.getConf(self.conf, "NUMBER_RANGE")
-            while type(t[0]) != int:
-                t = self.fake.random.choice(t)
-            return self.fake.random.randint(t[0], t[1])
-
-            return self.fake.random.randint(column.rules.Min, column.rules.Min)
-
-
+            return self.fake.random.randint(column.rules.Min, column.rules.Max)
         return 0
-        pass

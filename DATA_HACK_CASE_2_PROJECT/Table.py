@@ -11,12 +11,22 @@ from dataclasses import dataclass
 class ColumnRules:
     "The class denotes a Rules for Columns"
 
-    Mask: str = None
-    Templates: list = None
-    Range: list = None
-    Flag: bool = None
-    Min: int = None
-    Max: int = None
+    Mask:       str = None
+    Templates:  list = None
+    Range:  list = None
+    Flag:   bool = None
+    Min:    int = None
+    Max:    int = None
+
+    def __init__(self):
+        self.Mask = None
+        self.Templates = None
+        self.Range = None
+        self.Flag = None
+        self.Min = None
+        self.Max = None
+        pass
+
     pass
 
 
@@ -31,10 +41,18 @@ class Column:
     type: int
 
     # An array of elements
-    row: list() = None
+    row = None
 
     # Template to create elements
-    rules = ColumnRules
+    rules = None
+
+    def __init__(self, name: str, type: int):
+        self.name = name
+        self.type = type
+        self.row = list()
+        self.rules = ColumnRules()
+        pass
+
     pass
 
 
