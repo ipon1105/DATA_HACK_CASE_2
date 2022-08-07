@@ -148,6 +148,26 @@ class Generator:
                             #TODO: Сделать генерацию даты
                             pass
                         case Config.CONFIG_TYPE_TIMESTAMP:
+                            if(Config.DATE_MASK==None):
+                                column.row.append(self.fake.date_between(start_date="-"+str(2022-Config.DATE_MIN)+"y", end_date="-"+str(2022-Config.DATE_MAX)+"y"))
+                            if Config.DATE_MASK:
+                                mask = Config.DATE_MASK
+
+                                # Эта часть отвеает за то, что бы избавиться от всех #
+                                c_size = 0
+                                for c in mask:
+                                    if c == '#':
+                                        c_size += 1
+                                    elif c_size != 0:
+                                        k = ''
+                                        i = 0
+                                        while i != c_size:
+                                            i += 1
+                                            k + '#'
+                                        self.fake.pystr(min_chars=None, max_chars=c_size)
+                                        mask = mask.replace(k, self.fake.date_between(start_date="-"+str(2022-Config.DATE_MIN)+"y", end_date="-"+str(2022-Config.DATE_MAX)+"y"), 1)
+                                return mask
+
                             #TODO: Сделать генерацию даты
                             pass
                     pass
