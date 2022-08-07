@@ -6,40 +6,46 @@ import pyarrow.parquet as pq
 
 spark = SparkSession.builder.getOrCreate()
 
-#parquetF = spark.read.parquet("example.parquet")
+emp_data = [
+    (1, "Alexander", 2, 3500),
+    (2, "Roman", 1, 4500),
+    (3, "Tom", 1, 5500),
+    (4, "Alex", 3, 3000),
+    (5, "Arthur", 4, 4250),
+    (6, "Anna", 4, 3520),
+    (7, "Svetlana", 2, 3000),
+    (8, "Oleg", 5, 3200),
+    (9, "Felix", 1, 5500),
+    (10, "Olga", 5, 4970),
+    (11, "Anna", 4, 6320),
+    (12, "Tom", 3, 3500),
+    (13, "Felix", 4, 3520),
+    (14, "John", 2, 3500),
+    (15, "Finn", 5, 5570),
+    (16, "Polly", 3, 3800),
+]
 
-#parquetF.show()
+emp_schema = ["emp_id", "emp_name", "dept_id", "salary"]
+dept_data = [
+    (1, "IT"),
+    (2, "Admin"),
+    (3, "HR"),
+    (4, "Finance"),
+    (6, "Marketing"),
+]
+dept_schema = ["dept_id", "dept_name"]
 
-data =[("James ","","Smith","36636","M",3000),
-              ("Michael ","Rose","","40288","M",4000),
-              ("Robert ","","Williams","42114","M",4000),
-              ("Maria ","Anne","Jones","39192","F",4000),
-              ("Jen","Mary","Brown","","F",-1)]
-#columns=["firstname","middlename","lastname","dob","gender","salary"]
-#df = spark.createDataFrame(data, columns)
-#df.write.parquet("people.parquet")
-#parDF1 = spark.read.parquet("people.parquet")
-#df.write.mode('append').parquet("people.parquet")
-#df.write.mode('overwrite').parquet("people.parquet")
-#parDF1.createOrReplaceTempView("ParquetTable")
-#parkSQL = spark.sql("select * from ParquetTable where salary >= 4000 ")
-#spark.sql("CREATE TEMPORARY VIEW PERSON USING parquet OPTIONS (path "/exemple.parquet")")
-#spark.sql("SELECT * FROM PERSON").show()
+df1 = pd.DataFrame(emp_data, columns=emp_schema)
+df2 = pd.DataFrame(dept_data, columns=dept_schema)
 
-#df = spark.createDataFrame([("a", 1),   ("b", 2), ("c",  3)], ["Col1", "Col2"])
-#df.select(df.colRegex("(Col1)?+.+")).show()
 
-peopleDF = spark.read.json("data.json")
+df=pd.merge(df1, df2, on='dept_id', how='inner')
 
-# DataFrames can be saved as Parquet files, maintaining the schema information.
-peopleDF.write.parquet("people.parquet")
+#print(df)
 
-# Read in the Parquet file created above.
-# Parquet files are self-describing so the schema is preserved.
-# The result of loading a parquet file is also a DataFrame.
-parquetFile = spark.read.parquet("people.parquet")
+table = pa.Table.from_pandas(df)
+pq.write_table(table, 'example.parquet')
 
-# Parquet files can also be used to create a temporary view and then used in SQL statements.
-parquetFile.createOrReplaceTempView("parquetFile")
-teenagers = spark.sql("SELECT * FROM parquetFile ")
-teenagers.show()
+table2 = pq.read_table('example.parquet')
+
+print(table2.to_pandas())
