@@ -19,6 +19,22 @@ class Config:
     def __init__(self):
         self.conf = None
 
+    def to_def(self, column: Table.Column):
+        if  column.type == self.CONFIG_TYPE_INT or column.type == self.CONFIG_TYPE_FLOAT or column.type == self.CONFIG_TYPE_DATE or column.type == self.CONFIG_TYPE_TIMESTAMP:
+            column.rules.Min = self.NUMBER_MIN
+            column.rules.Max = self.NUMBER_MAX
+            column.rules.Flag = self.NUMBER_REPEAT
+        if  column.type == self.CONFIG_TYPE_STR:
+            column.rules.Min = self.STRING_MIN
+            column.rules.Max = self.STRING_MAX
+            column.rules.Flag = self.STRING_FIXING
+        if  column.type == self.CONFIG_TYPE_DATE or column.type == self.CONFIG_TYPE_TIMESTAMP:
+            column.rules.Min = self.DATE_MIN
+            column.rules.Max = self.DATE_MAX
+            column.rules.Flag = self.DATE_REPEAT
+
+        pass
+
     # Read JSON file
     def read(self):
         with open("data.json") as d:

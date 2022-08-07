@@ -43,6 +43,10 @@ class Generator:
         self.fake = Faker(self.conf.LOCALIZATION)
         Faker.seed(seed=self.conf.RANDOM_SEED)
 
+        for table_arr_b in self.table_arr:
+            for column_arr_b in table_arr_b.column_array:
+                self.conf.to_def(self.conf, column_arr_b)
+
         # Transfer data from JSON to table_arr
         for table_arr_a in self.data["TABLES"]:
             for table_arr_b in self.table_arr:
@@ -217,7 +221,7 @@ class Generator:
             return self.fake.random.choice(column.rules.Templates)
             pass
 
-
+        '''
         max = int(column.rules.Range[1]) if column.rules.Range != None else int(
             self.conf.getConf(self.conf, "STRING_MAX"))
         min = int(column.rules.Range[0]) if column.rules.Range != None else int(
@@ -225,8 +229,8 @@ class Generator:
 
         max = int(column.rules.Range[1]) if column.rules.Range != None else int(column.rules.Max)
         min = int(column.rules.Range[0]) if column.rules.Range != None else int(column.rules.Min)
-
-        self.fake.pystr(min_chars=min, max_chars=max)
+'''
+        self.fake.pystr(min_chars=column.rules.Min, max_chars=column.rules.Max)
         return self.fake.text()
         pass
 
@@ -248,5 +252,5 @@ class Generator:
                 t = self.fake.random.choice(t)
             return self.fake.random.randint(t[0], t[1])
         else:
-            return self.fake.random.randint(column.rules.Min, column.rules.Max)
+            return self.fake.random_int(min=column.rules.Min, max=column.rules.Max)
         return 0
