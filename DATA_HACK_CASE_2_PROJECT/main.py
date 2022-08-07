@@ -1,6 +1,6 @@
+from Config import Config
 from Generator import Generator
-
-from data import *
+from Table import Table, Column
 
 
 def printTable(t: Table):
@@ -33,9 +33,49 @@ if __name__ == '__main__':
 
     # TODO: DOCKER = YANDEX + GOOGLE оф сайты
 
-    gen = Generator([data.Product, data.PC, data.Notebook, data.Printer])
+    Product = Table("Product", [
+        Column("Number", Config.CONFIG_TYPE_INT),
+        Column("Manufacturer", Config.CONFIG_TYPE_STR),
+        Column("Type", Config.CONFIG_TYPE_STR)
+    ])
+
+    # t2.
+    PC = Table("PC", [
+        Column("Code", Config.CONFIG_TYPE_INT),
+        Column("Number", Config.CONFIG_TYPE_INT),
+        Column("Speed", Config.CONFIG_TYPE_INT),
+        Column("Memory", Config.CONFIG_TYPE_INT),
+        Column("HD", Config.CONFIG_TYPE_INT),
+        Column("ReadSpeed", Config.CONFIG_TYPE_INT),
+        Column("Price", Config.CONFIG_TYPE_INT)
+    ])
+
+    # t3.
+    Notebook = Table("Notebook", [
+        Column("Code", Config.CONFIG_TYPE_INT),
+        Column("Number", Config.CONFIG_TYPE_INT),
+        Column("Speed", Config.CONFIG_TYPE_INT),
+        Column("Memory", Config.CONFIG_TYPE_INT),
+        Column("HD", Config.CONFIG_TYPE_INT),
+        Column("Display", Config.CONFIG_TYPE_INT),
+        Column("Price", Config.CONFIG_TYPE_INT)
+    ])
+
+    # t4.
+    Printer = Table("Printer", [
+        Column("Code", Config.CONFIG_TYPE_INT),
+        Column("Number", Config.CONFIG_TYPE_INT),
+        Column("Color", Config.CONFIG_TYPE_INT),
+        Column("Type", Config.CONFIG_TYPE_STR),
+        Column("Price", Config.CONFIG_TYPE_INT)
+    ])
+
+    gen = Generator([Product, PC, Notebook, Printer])
     gen.run()
-    printTable(data.Product)
-    printTable(data.PC)
-    printTable(data.Notebook)
-    printTable(data.Printer)
+    printTable(Product)
+    printTable(PC)
+    printTable(Notebook)
+    printTable(Printer)
+    # Таблица на кластере
+    # parket достаточно
+    #
