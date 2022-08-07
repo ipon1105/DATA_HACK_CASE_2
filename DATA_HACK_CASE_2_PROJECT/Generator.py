@@ -47,7 +47,7 @@ class Generator:
                             if (column_arr_a == "COUNT"):
                                 temp_count = self.data["TABLES"][table_arr_a][column_arr_a]
                             elif (column_arr_a == column_arr_b.name):
-                                
+                                table_arr_b.count = temp_count
                                 for key, value in self.data["TABLES"][table_arr_a][column_arr_b.name].items():
                                     if (key == 'NUMBER_MASK' or
                                             key == 'STRING_MASK' or
